@@ -1,0 +1,24 @@
+// QUESTIONS is an existing collection of all questions, where a question object has the method getDifficulty()
+
+QUESTIONLIST = new Collection()
+AVAILABLEQUESTIONS = new Collection()
+
+input NUMBEROFQUESTIONS
+input DIFFICULTY
+
+loop P from 0 to QUESTIONS.length
+    if QUESTIONS[P].getDifficulty() = DIFFICULTY
+        AVAILABLEQUESTIONS = QUESTIONS[P]
+    end if
+end loop
+
+RAND = 0
+
+loop N from 0 to NUMBEROFQUESTIONS
+    RAND = random(0, QUESTIONS.length)
+    QUESTIONSLIST[N] = QUESTIONS[RAND]
+    AVAILABLEQUESTIONS.remove(RAND)
+end loop
+
+
+

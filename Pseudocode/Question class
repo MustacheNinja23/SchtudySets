@@ -1,0 +1,22 @@
+class Question
+    Anwser ANS  //Answer object associated with the question
+    String QUES  //String containing the full question to be displayed
+    String IMG_ADD  //String containing the path to an image contained in resources
+    Integer DIFF  //Integer that determines the difficulty level of the question
+
+    public Question(String S, Answer A)
+        ANS = A
+        QUES = S
+
+    public Question(String S, Answer A, String I)
+        ANS = A
+        QUES = S
+        IMG_ADD = I
+
+    public Integer getDifficulty()
+        output DIFF
+
+    public Answer getAnswer()
+        output ANS
+
+    public
