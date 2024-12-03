@@ -1,14 +1,16 @@
 class Question
     Anwser ANS  //Answer object associated with the question
-    String QUES  //String containing the full question to be displayed
-    String IMG_ADD  //String containing the path to an image contained in resources
+    String QUES  //Contains the full question to be displayed
+    String TYPE  //Specifies the type of question (e.g. projectile motion, forces, etc)
+    String IMG_ADD  //Specifies the path to an image contained in resources
     Integer DIFF  //Integer that determines the difficulty level of the question
 
-    public Question(String S, Answer A)
+    public Question(String S, String T, Answer A)
         ANS = A
         QUES = S
+        TYPE = T
 
-    public Question(String S, Answer A, String I)
+    public Question(String S, String T, Answer A, String I)
         ANS = A
         QUES = S
         IMG_ADD = I
@@ -19,4 +21,8 @@ class Question
     public Answer getAnswer()
         output ANS
 
-    public
+    public String getType()
+        output TYPE
+
+    public String getImageAdd()
+        output IMG_ADD

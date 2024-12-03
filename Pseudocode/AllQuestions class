@@ -1,0 +1,19 @@
+import HashMap
+public class AllQuestions
+    TYPES = new Collection<String>()  //contains all question types
+    DIFFS = new Collection<Integer>()  //contains all difficulties
+    Map = new HashMap<Identifier, Collection<Question>>()  //Identifier is a class containing a type and a difficulty
+
+    public AllQuestions()  //creates an instance of the AllQuestions class, adds all questions to the map
+        loop P from 0 to TYPES.length
+            loop L from 0 to DIFFS.length
+                Map.put(new Identifier(TYPES[P], DIFFS[L]), new Collection<Question>())
+            end loop
+        end loop
+
+    public Collection<Question> getQuestionList(Identifier ID)
+        output Map.get(ID)
+
+    public Question getRandomQuestion(Identifier ID)
+        LIST = getQuestionList(ID)
+        output LIST[random(0,LIST.length)]
