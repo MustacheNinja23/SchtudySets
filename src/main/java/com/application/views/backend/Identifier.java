@@ -1,4 +1,4 @@
-package com.application.backend;
+package com.application.views.backend;
 
 public class Identifier {
     private String type = "";
@@ -19,5 +19,9 @@ public class Identifier {
 
     public boolean compareTo(Identifier other) {
         return diff == other.diff && type.equals(other.type);
+    }
+
+    public String toString() {
+        return type + " " + diff;
     }
 }

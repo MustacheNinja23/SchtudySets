@@ -1,6 +1,4 @@
-package com.application.backend;
-
-import java.io.Serializable;
+package com.application.views.backend;
 
 public class Question {
     String ques;
@@ -42,5 +40,9 @@ public class Question {
             default:
                 return "";
         }
+    }
+
+    public String toString(){
+        return "{ " + ques + " : " + id.toString() + " : " + ans.toString() + " : " + img + " }";
     }
 }

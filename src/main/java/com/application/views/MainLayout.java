@@ -1,24 +1,13 @@
 package com.application.views;
 
-import com.application.views.about.AboutView;
-import com.application.views.helloworld.HelloWorldView;
-import com.application.views.LoginPage.LoginPage;
-import com.vaadin.flow.component.applayout.AppLayout;
-import com.vaadin.flow.component.applayout.DrawerToggle;
-import com.vaadin.flow.component.html.Footer;
-import com.vaadin.flow.component.html.H1;
-import com.vaadin.flow.component.html.Header;
-import com.vaadin.flow.component.html.Span;
-import com.vaadin.flow.component.orderedlayout.Scroller;
-import com.vaadin.flow.component.sidenav.SideNav;
-import com.vaadin.flow.component.sidenav.SideNavItem;
-import com.vaadin.flow.server.menu.MenuConfiguration;
-import com.vaadin.flow.theme.lumo.LumoUtility;
-import org.vaadin.lineawesome.LineAwesomeIcon;
+import com.application.views.QuestionView.QuestionView;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.router.Layout;
+import com.vaadin.flow.router.RouterLayout;
 
 /**
  * The main view is a top-level placeholder for other views.
- */
+ *
 public class MainLayout extends AppLayout {
 
     private H1 viewTitle;
@@ -73,5 +62,19 @@ public class MainLayout extends AppLayout {
 
     private String getCurrentPageTitle() {
         return MenuConfiguration.getPageHeader(getContent()).orElse("");
+    }
+}*/
+
+@Layout
+public class MainLayout extends VerticalLayout implements RouterLayout {
+    public MainLayout() {
+
+    }
+
+    public void routeTo(String route) {
+        /*switch(route){
+            case "LoginPage":
+
+        }*/
     }
 }
