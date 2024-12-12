@@ -1,4 +1,4 @@
-package com.application.views.backend;
+package com.application.backend;
 
 public class Identifier {
     private String type = "";

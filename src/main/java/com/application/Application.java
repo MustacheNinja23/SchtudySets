@@ -1,6 +1,6 @@
 package com.application;
 
-import com.application.views.backend.AllQuestions;
+import com.application.backend.AllQuestions;
 import com.vaadin.flow.component.page.AppShellConfigurator;
 import com.vaadin.flow.theme.Theme;
 import org.springframework.boot.SpringApplication;
