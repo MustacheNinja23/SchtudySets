@@ -1,4 +1,4 @@
-package com.application.backend;
+package com.application.views.backend;
 
 import com.github.javaparser.quality.NotNull;
 
