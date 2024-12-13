@@ -1,4 +1,4 @@
-package com.application.backend;
+package com.application.views.backend;
 
 public class Question {
     String ques;
