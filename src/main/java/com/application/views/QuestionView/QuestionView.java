@@ -1,6 +1,5 @@
 package com.application.views.QuestionView;
 
-import com.application.views.backend.AllQuestions;
 import com.application.views.MainLayout;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
