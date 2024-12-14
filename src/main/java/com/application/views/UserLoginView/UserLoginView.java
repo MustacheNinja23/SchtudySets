@@ -11,7 +11,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
-@PageTitle("Login Page")
+@PageTitle("User Login")
 @Route(value = "", layout = MainLayout.class)
 public class UserLoginView extends HorizontalLayout {
 
@@ -35,8 +35,8 @@ public class UserLoginView extends HorizontalLayout {
         });
         send.addClickShortcut(Key.ENTER);
 
-        Button goToHostView = new Button("help", event -> {
-            UI.getCurrent().navigate("question");
+        Button goToHostView = new Button("host game", event -> {
+            UI.getCurrent().navigate("host");
         });
 
         this.setSizeFull();

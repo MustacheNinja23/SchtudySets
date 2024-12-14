@@ -70,11 +70,4 @@ public class MainLayout extends VerticalLayout implements RouterLayout {
     public MainLayout() {
 
     }
-
-    public void routeTo(String route) {
-        /*switch(route){
-            case "LoginPage":
-
-        }*/
-    }
 }
