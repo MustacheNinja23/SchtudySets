@@ -1,7 +1,7 @@
 package com.application;
 
-import com.application.views.backend.AllQuestions;
-import com.application.views.backend.CurrentPageDimensions;
+import com.application.views.backend.AllGames;
+import com.application.views.backend.questionClasses.AllQuestions;
 import com.vaadin.flow.component.page.AppShellConfigurator;
 import com.vaadin.flow.theme.Theme;
 import org.springframework.boot.SpringApplication;
@@ -22,6 +22,7 @@ public class Application implements AppShellConfigurator {
 
     public static void main(String[] args) throws FileNotFoundException {
         AllQuestions.instantiate();
+        AllGames.instantiate();
 
         SpringApplication.run(Application.class, args);
     }

@@ -1,4 +1,4 @@
-package com.application.views.backend;
+package com.application.views.backend.questionClasses;
 
 public class Question {
     String ques;
@@ -17,29 +17,16 @@ public class Question {
         return ques;
     }
 
-    public String getType(){
-        return id.getType();
+    public String[] getType(){
+        return id.getTypes();
     }
 
-    public int getDiff(){
+    public String getDiff(){
         return id.getDiff();
     }
 
     public String getImageAdd(){
         return img;
-    }
-
-    public String getDiffAsString(){
-        switch(id.getDiff()){
-            case 0:
-                return "On level";
-            case 1:
-                return "Honors";
-            case 2:
-                return "AP";
-            default:
-                return "";
-        }
     }
 
     public String toString(){

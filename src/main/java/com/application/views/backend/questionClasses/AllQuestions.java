@@ -1,4 +1,4 @@
-package com.application.views.backend;
+package com.application.views.backend.questionClasses;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -13,10 +13,10 @@ public class AllQuestions {
         "Projectile Motion",
 
     };
-    public static int[] diffs = {  //List of all difficulties as ints
-        0,
-        1,
-        2
+    public static String[] diffs = {  //List of all difficulties
+        "On-level",
+        "Honors",
+        "AP"
     };
     public static ArrayList<Identifier> ids = new ArrayList<Identifier>();
 
@@ -33,8 +33,8 @@ public class AllQuestions {
 
         //create ids for lists & add questions
         for(String t : types) {
-            for(int d : diffs) {
-                ids.add(new Identifier(t,d));
+            for(String d : diffs) {
+                ids.add(new Identifier(d,t));
             }
         }
 
@@ -74,12 +74,12 @@ public class AllQuestions {
 
 
 
-    public static ArrayList<Question> getQuestionList(Identifier id) {
+    public static ArrayList<Question> getQuestionTypeList(Identifier id) {
         return questions.get(id);
     }
 
     public static Question getRandomQuestion(Identifier id) {
-        ArrayList<Question> temp = getQuestionList(id);
+        ArrayList<Question> temp = getQuestionTypeList(id);
         return temp.get((int)(Math.random() * temp.size()));
     }
 }
