@@ -6,19 +6,13 @@ import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.applayout.AppLayout;
 
 public class QuestionView extends AppLayout {
-    ViewContainer container = ((ViewContainer) UI.getCurrent().getSession().getAttribute("viewContainer"));
+    private ViewContainer container = ((ViewContainer) UI.getCurrent().getSession().getAttribute("viewContainer"));
 
     public QuestionView(){
         CurrentPageDimensions.update();
-        createPage();
     }
 
     public void createPage(){
 
-        UI.getCurrent().getPage().addBrowserWindowResizeListener(e -> {
-            //this.removeAll();
-            CurrentPageDimensions.update(e);
-            createPage();
-        });
     }
 }

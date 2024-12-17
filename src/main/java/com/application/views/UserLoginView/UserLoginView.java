@@ -15,16 +15,15 @@ import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.router.*;
 import com.vaadin.flow.server.VaadinSession;
 
 public class UserLoginView extends AbsoluteLayout{
-    ViewContainer container = ((ViewContainer) UI.getCurrent().getSession().getAttribute("viewContainer"));
+    private ViewContainer container = ((ViewContainer) UI.getCurrent().getSession().getAttribute("viewContainer"));
 
-    H1 title;
-    TextField gameNum, nickName;
-    Button send;
-    VerticalLayout items;
+    private H1 title;
+    private TextField gameNum, nickName;
+    private Button send;
+    private VerticalLayout items;
 
     public UserLoginView() {
         CurrentPageDimensions.update();
@@ -42,12 +41,19 @@ public class UserLoginView extends AbsoluteLayout{
 
         send.addClickListener(e -> {
             if(!nickName.getValue().isEmpty() && !gameNum.getValue().isEmpty()) {
+                boolean check = false;
                 for(String s : AllGames.allGames.keySet()){
                     if(gameNum.getValue().equals(s)){
                         User me = new User(VaadinSession.getCurrent(), nickName.getValue(), gameNum.getValue());
                         AllGames.allGames.get(gameNum.getValue()).addUser(me);
                         UI.getCurrent().getSession().setAttribute("currentUser", me);
+                        check = true;
+                        container.changeToView("waitingView");
+                        break;
                     }
+                }
+                if(!check){
+                    Notification.show("Game Number does not exist");
                 }
             }else{
                 Notification.show("Please enter a Game Number and a Nickname");
@@ -73,12 +79,5 @@ public class UserLoginView extends AbsoluteLayout{
         this.add(title, CurrentPageDimensions.getHeight()/6, CurrentPageDimensions.getWidth() * 3/8);
         this.add(items, CurrentPageDimensions.getHeight()/3, CurrentPageDimensions.getWidth()/3);
         this.setSizeUndefined();
-
-        //Standard resize listener for all AbsoluteLayout pages
-        UI.getCurrent().getPage().addBrowserWindowResizeListener(e -> {
-            this.removeAll();
-            CurrentPageDimensions.update(e);
-            createPage();
-        });
     }
 }

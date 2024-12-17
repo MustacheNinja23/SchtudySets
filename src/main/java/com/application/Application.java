@@ -3,6 +3,8 @@ package com.application;
 import com.application.views.backend.AllGames;
 import com.application.views.backend.questionClasses.AllQuestions;
 import com.vaadin.flow.component.page.AppShellConfigurator;
+import com.vaadin.flow.component.page.Push;
+import com.vaadin.flow.shared.communication.PushMode;
 import com.vaadin.flow.theme.Theme;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,6 +19,7 @@ import java.io.FileNotFoundException;
  *
  */
 @SpringBootApplication
+@Push(PushMode.AUTOMATIC)
 @Theme(value = "test")
 public class Application implements AppShellConfigurator {
 

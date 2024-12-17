@@ -55,21 +55,31 @@ public class AllQuestions {
                 iterator.next();  //skip empty lines
             } while(iterator.next().charAt(0) != '*');
         }
+
+        System.out.println(questions.toString());
     }
 
     // Likely need more versions of "createListOfQuestions"
 
     public static ArrayList<Question> createListOfQuestions(Identifier id, int number) {
-        ArrayList<Question> tempQuestions = questions.get(id);
-        ArrayList<Question> list = new ArrayList<Question>();
+        ArrayList<Question> tempQuestions;
+        ArrayList<Question> list;
+        
+        for(Identifier d : ids) {
+            if(id.equals(d)) {
+                tempQuestions = questions.get(d);
+                list = new ArrayList<Question>();
 
-        int rand;
-        for(int i = 0; i < number; i++) {
-            rand = (int)(Math.random() * tempQuestions.size());
-            list.add(tempQuestions.get(rand));
-            tempQuestions.remove(rand);
+                int rand;
+                for(int i = 0; i < number; i++) {
+                    rand = (int)(Math.random() * tempQuestions.size());
+                    list.add(tempQuestions.get(rand));
+                    tempQuestions.remove(rand);
+                }
+                return list;
+            }
         }
-        return list;
+        return null;
     }
 
 

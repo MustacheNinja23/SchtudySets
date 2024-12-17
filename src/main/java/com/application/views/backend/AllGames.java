@@ -11,6 +11,7 @@ public class AllGames {
 
     public static void addGame(Game game) {
         allGames.put(game.getGameNumber(), game);
+        System.out.println(allGames.get(game.getGameNumber()).getGameNumber());
     }
 
     public static Game getGame(String gameNumber) {
