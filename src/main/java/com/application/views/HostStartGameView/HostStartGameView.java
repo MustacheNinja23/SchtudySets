@@ -1,6 +1,7 @@
 package com.application.views.HostStartGameView;
 
 import com.application.views.MainLayout;
+import com.application.views.ViewContainer.ViewContainer;
 import com.application.views.backend.*;
 import com.application.views.backend.questionClasses.Identifier;
 import com.vaadin.flow.component.UI;
@@ -14,9 +15,9 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinSession;
 import jakarta.persistence.Id;
 
-@Route(value = "hostStartGame", layout = MainLayout.class)
-public class HostStartGameView extends AbsoluteLayout implements AfterNavigationObserver {
-    static int rel = 0;
+//@Route(value = "hostStartGame", layout = MainLayout.class)
+public class HostStartGameView extends AbsoluteLayout{
+    ViewContainer container = ((ViewContainer) UI.getCurrent().getSession().getAttribute("viewContainer"));
 
     public String gameNumber = "";
 
@@ -28,8 +29,6 @@ public class HostStartGameView extends AbsoluteLayout implements AfterNavigation
 
     public HostStartGameView() {
         CurrentPageDimensions.update();
-        gameNumber = (String) VaadinSession.getCurrent().getSession().getAttribute("gameNumber");
-        game = AllGames.getGame(gameNumber);
     }
 
     public void createPage(){
@@ -69,16 +68,5 @@ public class HostStartGameView extends AbsoluteLayout implements AfterNavigation
 
     public String getGameNumber() {
         return gameNumber;
-    }
-
-    @Override
-    public void afterNavigation(AfterNavigationEvent afterNavigationEvent) {
-        this.setVisible(rel != 0);
-        createPage();
-        if(rel == 0) {
-            UI.getCurrent().getPage().reload();
-            rel++;
-            this.setVisible(true);
-        }
     }
 }

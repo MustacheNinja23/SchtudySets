@@ -1,6 +1,7 @@
 package com.application.views.UserLoginView;
 
 import com.application.views.MainLayout;
+import com.application.views.ViewContainer.ViewContainer;
 import com.application.views.backend.AbsoluteLayout;
 import com.application.views.backend.AllGames;
 import com.application.views.backend.CurrentPageDimensions;
@@ -17,11 +18,8 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.*;
 import com.vaadin.flow.server.VaadinSession;
 
-@PageTitle("User Login")
-@Route(value = "", layout = MainLayout.class)
-public class UserLoginView extends AbsoluteLayout implements AfterNavigationObserver {
-
-    static int rel = 0;
+public class UserLoginView extends AbsoluteLayout{
+    ViewContainer container = ((ViewContainer) UI.getCurrent().getSession().getAttribute("viewContainer"));
 
     H1 title;
     TextField gameNum, nickName;
@@ -30,6 +28,7 @@ public class UserLoginView extends AbsoluteLayout implements AfterNavigationObse
 
     public UserLoginView() {
         CurrentPageDimensions.update();
+        createPage();
     }
 
     public void createPage() {
@@ -47,8 +46,7 @@ public class UserLoginView extends AbsoluteLayout implements AfterNavigationObse
                     if(gameNum.getValue().equals(s)){
                         User me = new User(VaadinSession.getCurrent(), nickName.getValue(), gameNum.getValue());
                         AllGames.allGames.get(gameNum.getValue()).addUser(me);
-                        VaadinSession.getCurrent().setAttribute(User.class, me);
-                        UI.getCurrent().navigate("waiting");
+                        UI.getCurrent().getSession().setAttribute("currentUser", me);
                     }
                 }
             }else{
@@ -57,7 +55,9 @@ public class UserLoginView extends AbsoluteLayout implements AfterNavigationObse
         });
         send.addClickShortcut(Key.ENTER);
 
-        Button goToHostView = new Button("host game", e -> UI.getCurrent().navigate("host"));
+        Button goToHostView = new Button("host game", e -> {
+            container.changeToView("hostLoginView");
+        });
 
         VerticalLayout items = new VerticalLayout(gameNum, nickName, send, goToHostView);
         items.setJustifyContentMode(FlexComponent.JustifyContentMode.CENTER);
@@ -80,18 +80,5 @@ public class UserLoginView extends AbsoluteLayout implements AfterNavigationObse
             CurrentPageDimensions.update(e);
             createPage();
         });
-
-        this.setVisible(rel != 0);
-    }
-
-    @Override
-    public void afterNavigation(AfterNavigationEvent afterNavigationEvent) {
-        this.setVisible(rel != 0);
-        createPage();
-        if(rel == 0) {
-            UI.getCurrent().getPage().reload();
-            rel++;
-            this.setVisible(true);
-        }
     }
 }
