@@ -1,4 +1,4 @@
-package com.application.views.backend.questionClasses;
+package com.application.views.backend.question_classes;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -40,23 +40,27 @@ public class AllQuestions {
 
         Iterator<String> iterator = fileList.iterator();
         iterator.next();
+        String temp = iterator.next();
         for(Identifier id : ids) {
             questions.put(id, new ArrayList<Question>());
 
             do{
+                if(temp.charAt(0) == '*') {
+                    break;
+                }
+
                 questions.get(id).add(
                     new Question(
-                        iterator.next(),
+                        temp,
                         id,
                         new Answer(Double.parseDouble(iterator.next())),
                         iterator.next()
                     )
                 );
                 iterator.next();  //skip empty lines
-            } while(iterator.next().charAt(0) != '*');
+                temp = iterator.next();
+            } while(temp.charAt(0) != '*');
         }
-
-        System.out.println(questions.toString());
     }
 
     // Likely need more versions of "createListOfQuestions"

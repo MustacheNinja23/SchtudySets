@@ -1,11 +1,10 @@
-package com.application.views.UserLoginView;
+package com.application.views.user_views;
 
-import com.application.views.MainLayout;
-import com.application.views.ViewContainer.ViewContainer;
+import com.application.views.ViewContainer;
 import com.application.views.backend.AbsoluteLayout;
-import com.application.views.backend.AllGames;
+import com.application.views.backend.game_classes.AllGames;
 import com.application.views.backend.CurrentPageDimensions;
-import com.application.views.backend.User;
+import com.application.views.backend.game_classes.User;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.Unit;
@@ -46,7 +45,7 @@ public class UserLoginView extends AbsoluteLayout{
                     if(gameNum.getValue().equals(s)){
                         User me = new User(VaadinSession.getCurrent(), nickName.getValue(), gameNum.getValue());
                         AllGames.allGames.get(gameNum.getValue()).addUser(me);
-                        UI.getCurrent().getSession().setAttribute("currentUser", me);
+                        container.setGameNumber(gameNum.getValue());
                         check = true;
                         container.changeToView("waitingView");
                         break;

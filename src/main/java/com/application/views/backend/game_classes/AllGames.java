@@ -1,4 +1,4 @@
-package com.application.views.backend;
+package com.application.views.backend.game_classes;
 
 import java.util.HashMap;
 

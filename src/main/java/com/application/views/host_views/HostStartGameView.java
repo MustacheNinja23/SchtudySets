@@ -1,19 +1,18 @@
-package com.application.views.HostStartGameView;
+package com.application.views.host_views;
 
-import com.application.views.ViewContainer.ViewContainer;
+import com.application.views.ViewContainer;
 import com.application.views.backend.*;
+import com.application.views.backend.broadcasters.StartGameEventBroadcaster;
+import com.application.views.backend.game_classes.Game;
+import com.application.views.backend.game_classes.User;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.Unit;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.virtuallist.VirtualList;
-import org.atmosphere.cpr.Broadcaster;
 
 public class HostStartGameView extends AbsoluteLayout{
     private ViewContainer container = ((ViewContainer) UI.getCurrent().getSession().getAttribute("viewContainer"));
-
-    private StartGameEventBroadcaster.Registration registration;
 
     private String gameNumber = "";
 
@@ -28,14 +27,11 @@ public class HostStartGameView extends AbsoluteLayout{
     }
 
     public void createPage(){
-        gameNumber = ((String) UI.getCurrent().getSession().getAttribute("gameNumber"));
-
-        registration = StartGameEventBroadcaster.register(message -> {
-            UI.getCurrent().access(() -> Notification.show(message));
-        });
+        gameNumber = container.getGameNumber();
 
         startGame = new Button("Start Game", event -> {
-            StartGameEventBroadcaster.broadcast("startGame");
+            StartGameEventBroadcaster.broadcast(gameNumber);
+            container.changeToView("hostLeaderboardView");
         });
         startGame.getStyle().set("font-size", "30");
 
@@ -51,16 +47,6 @@ public class HostStartGameView extends AbsoluteLayout{
             this.add(nums, CurrentPageDimensions.getHeight() /4, CurrentPageDimensions.getWidth()/4 + (CurrentPageDimensions.getWidth() * i/12));
         }
 
-        //this.add();
-
         this.add(startGame, CurrentPageDimensions.getHeight() * 3/4, CurrentPageDimensions.getWidth() * 5/12);
-    }
-
-//    public void fireStartGameEvent() {
-//        fireEvent(new StartGameEvent(this, false));
-//    }
-
-    public String getGameNumber() {
-        return gameNumber;
     }
 }

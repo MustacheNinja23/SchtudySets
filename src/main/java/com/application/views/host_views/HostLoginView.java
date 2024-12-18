@@ -1,18 +1,16 @@
-package com.application.views.HostLoginView;
+package com.application.views.host_views;
 
-import com.application.views.MainLayout;
-import com.application.views.ViewContainer.ViewContainer;
+import com.application.views.ViewContainer;
 import com.application.views.backend.AbsoluteLayout;
-import com.application.views.backend.AllGames;
+import com.application.views.backend.game_classes.AllGames;
 import com.application.views.backend.CurrentPageDimensions;
-import com.application.views.backend.Game;
-import com.application.views.backend.questionClasses.AllQuestions;
-import com.application.views.backend.questionClasses.Identifier;
+import com.application.views.backend.game_classes.Game;
+import com.application.views.backend.question_classes.AllQuestions;
+import com.application.views.backend.question_classes.Identifier;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.checkbox.CheckboxGroup;
 import com.vaadin.flow.component.checkbox.CheckboxGroupVariant;
-import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.radiobutton.RadioButtonGroup;
@@ -72,7 +70,7 @@ public class HostLoginView extends AbsoluteLayout{
     public void createGame(String difficulty, String[] questionTypes, String numQuestions){
         String gameNumber = "";
         for(int i = 0; i < 4; i++) gameNumber += (int)(Math.random() * 10);
-        UI.getCurrent().getSession().setAttribute("gameNumber", gameNumber);
+        container.setGameNumber(gameNumber);
 
         AllGames.addGame(new Game(
                 gameNumber,
@@ -80,6 +78,6 @@ public class HostLoginView extends AbsoluteLayout{
                 Integer.parseInt(numQuestions)
         ));
 
-        ((ViewContainer) UI.getCurrent().getSession().getAttribute("viewContainer")).changeToView("hostStartGameView");
+        container.changeToView("hostStartGameView");
     }
 }

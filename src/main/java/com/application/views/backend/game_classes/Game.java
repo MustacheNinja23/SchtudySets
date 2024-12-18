@@ -1,8 +1,8 @@
-package com.application.views.backend;
+package com.application.views.backend.game_classes;
 
-import com.application.views.backend.questionClasses.AllQuestions;
-import com.application.views.backend.questionClasses.Identifier;
-import com.application.views.backend.questionClasses.Question;
+import com.application.views.backend.question_classes.AllQuestions;
+import com.application.views.backend.question_classes.Identifier;
+import com.application.views.backend.question_classes.Question;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,8 +18,20 @@ public class Game {
         this.gameNumber = gameNumber;
     }
 
-    public HashMap<String, User> getUsers() {
-        return users;
+    public User[] getUsersAsList() {
+        return users.values().toArray(new User[0]);
+    }
+
+    public User getUser(String name) {
+        return users.get(name);
+    }
+
+    public ArrayList<Question> getQuestions() {
+        return questions;
+    }
+
+    public int getNumberOfQuestions() {
+        return questions.size();
     }
 
     public String getGameNumber() {

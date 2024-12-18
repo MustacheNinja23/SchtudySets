@@ -1,4 +1,4 @@
-package com.application.views.backend.questionClasses;
+package com.application.views.backend.question_classes;
 
 public class Question {
     String ques;
@@ -11,6 +11,10 @@ public class Question {
         id = i;
         ans = a;
         img = ia;
+    }
+
+    public Answer getAnswer(){
+        return ans;
     }
 
     public String getQues(){

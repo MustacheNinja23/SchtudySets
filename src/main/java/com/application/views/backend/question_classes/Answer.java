@@ -1,4 +1,4 @@
-package com.application.views.backend.questionClasses;
+package com.application.views.backend.question_classes;
 
 import com.github.javaparser.quality.NotNull;
 

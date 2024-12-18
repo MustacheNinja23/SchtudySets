@@ -1,4 +1,4 @@
-package com.application.views.backend.questionClasses;
+package com.application.views.backend.question_classes;
 
 import java.util.Arrays;
 
@@ -19,7 +19,7 @@ public class Identifier {
         return diff;
     }
 
-    public boolean compareTo(Identifier other) {
+    public boolean equals(Identifier other) {
         return diff == other.diff && Arrays.equals(types, other.types);
     }
 

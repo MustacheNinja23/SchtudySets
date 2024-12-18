@@ -1,7 +1,7 @@
 package com.application;
 
-import com.application.views.backend.AllGames;
-import com.application.views.backend.questionClasses.AllQuestions;
+import com.application.views.backend.game_classes.AllGames;
+import com.application.views.backend.question_classes.AllQuestions;
 import com.vaadin.flow.component.page.AppShellConfigurator;
 import com.vaadin.flow.component.page.Push;
 import com.vaadin.flow.shared.communication.PushMode;
