@@ -7,6 +7,9 @@ import com.application.views.backend.question_classes.Question;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/*
+    Contains all identifying information and a HashMap of users for a Game instance
+*/
 public class Game {
     private HashMap<String, User> users;
     private final String gameNumber;
@@ -41,8 +44,7 @@ public class Game {
     public void addUser(User user) {
         for(User u : users.values()) {
             if(user.getNickName().equals(u.getNickName())) {
-
-                return;
+                continue;
             }
         }
         users.put(user.getNickName(), user);

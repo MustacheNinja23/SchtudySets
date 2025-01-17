@@ -2,6 +2,10 @@ package com.application.views.backend.question_classes;
 
 import java.util.Arrays;
 
+/*
+    Contains a 'type' and a 'difficulty' for sorting and
+    identifying Question objects
+*/
 public class Identifier {
     private final String[] types;
     private final String diff;
@@ -20,7 +24,7 @@ public class Identifier {
     }
 
     public boolean equals(Identifier other) {
-        return diff == other.diff && Arrays.equals(types, other.types);
+        return diff.equals(other.diff) && Arrays.equals(types, other.types);
     }
 
     public String toString() {

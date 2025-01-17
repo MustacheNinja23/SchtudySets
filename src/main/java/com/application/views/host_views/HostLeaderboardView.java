@@ -1,9 +1,8 @@
 package com.application.views.host_views;
 
 import com.application.views.ViewContainer;
-import com.application.views.backend.AbsoluteLayout;
-import com.application.views.backend.CurrentPageDimensions;
-import com.application.views.backend.broadcasters.StartGameEventBroadcaster;
+import com.application.views.backend.utils.AbsoluteLayout;
+import com.application.views.backend.utils.CurrentPageDimensions;
 import com.application.views.backend.broadcasters.UpdateScoreBroadcaster;
 import com.application.views.backend.game_classes.AllGames;
 import com.application.views.backend.game_classes.Game;
@@ -16,18 +15,22 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.shared.Registration;
 
+/*
+    View shown on the user session while the game is ongoing
+    Displays a leaderboard ranking each User instance by their current points
+*/
 public class HostLeaderboardView extends AbsoluteLayout {
-    private ViewContainer container = ((ViewContainer) UI.getCurrent().getSession().getAttribute("viewContainer"));
-
+    // internal
+    private final ViewContainer container = ((ViewContainer) UI.getCurrent().getSession().getAttribute("viewContainer"));
     private Registration registration;
-
     Game game;
-
     private String gameNumber = "";
 
-    private Div leaderboard;
-    private Button endGame;
+    // elements
+    Div leaderboard;
+    Button endGame;
 
+    // Event Listener for ScoreUpdateEvents sent by users in the same game
     @Override
     protected void onAttach(AttachEvent attachEvent) {
         registration = UpdateScoreBroadcaster.register(scoreUpdate -> {
@@ -38,12 +41,14 @@ public class HostLeaderboardView extends AbsoluteLayout {
         });
     }
 
+    // Remove Event Listener on detach
     @Override
     protected void onDetach(DetachEvent detachEvent){
         registration.remove();
         registration = null;
     }
 
+    // Create Page
     public HostLeaderboardView(){
         CurrentPageDimensions.update();
     }
@@ -53,6 +58,7 @@ public class HostLeaderboardView extends AbsoluteLayout {
         game = AllGames.getGame(gameNumber);
     }
 
+    //TODO: Make leaderboard
     public void createPage(){
         initialize();
 
@@ -76,6 +82,4 @@ public class HostLeaderboardView extends AbsoluteLayout {
 
         add(endGame, CurrentPageDimensions.getHeight() * 9/10, CurrentPageDimensions.getWidth() * 2/5);
     }
-
-
 }

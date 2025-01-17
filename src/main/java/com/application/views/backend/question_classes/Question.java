@@ -1,5 +1,14 @@
 package com.application.views.backend.question_classes;
 
+/*
+    Server side class containing the information for a single question
+
+    Contains:
+        - The question as a String
+        - The associated Identifier instance
+        - The associated Answer instance
+        - A String containing a file path to an associated Image
+*/
 public class Question {
     String ques;
     Identifier id;

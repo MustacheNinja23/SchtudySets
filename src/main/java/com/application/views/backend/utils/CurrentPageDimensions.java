@@ -1,9 +1,12 @@
-package com.application.views.backend;
+package com.application.views.backend.utils;
 
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.page.BrowserWindowResizeEvent;
-import com.vaadin.flow.component.page.BrowserWindowResizeListener;
 
+/*
+    Custom utility class that uses the current session window
+    to retrieve precise sizes/locations
+*/
 public class CurrentPageDimensions{
     private static int width;
     private static int height;

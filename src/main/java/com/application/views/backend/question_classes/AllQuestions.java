@@ -7,6 +7,10 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Scanner;
 
+/*
+    Contains a HashMap of ArrayLists, each of which contains
+    all questions sharing an Identifier with the List
+*/
 public class AllQuestions {
     public static HashMap<Identifier, ArrayList<Question>> questions;
     public static String[] types = {  // List of all question types
@@ -63,7 +67,7 @@ public class AllQuestions {
         }
     }
 
-    // Likely need more versions of "createListOfQuestions"
+    //TODO: Likely need more versions of "createListOfQuestions"
 
     public static ArrayList<Question> createListOfQuestions(Identifier id, int number) {
         ArrayList<Question> tempQuestions;

@@ -1,9 +1,9 @@
 package com.application.views.user_views;
 
 import com.application.views.ViewContainer;
-import com.application.views.backend.AbsoluteLayout;
+import com.application.views.backend.utils.AbsoluteLayout;
 import com.application.views.backend.game_classes.AllGames;
-import com.application.views.backend.CurrentPageDimensions;
+import com.application.views.backend.utils.CurrentPageDimensions;
 import com.application.views.backend.game_classes.User;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.UI;
@@ -16,12 +16,17 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.server.VaadinSession;
 
+/*
+    Initial active View for all sessions
+    Contains the logic to register as a User in an active Game instance
+    Links to the HostLoginView
+*/
 public class UserLoginView extends AbsoluteLayout{
-    private ViewContainer container = ((ViewContainer) UI.getCurrent().getSession().getAttribute("viewContainer"));
+    // internal
+    private final ViewContainer container = ((ViewContainer) UI.getCurrent().getSession().getAttribute("viewContainer"));
 
-    private H1 title;
+    // elements
     private TextField gameNum, nickName;
-    private Button send;
     private VerticalLayout items;
 
     public UserLoginView() {
@@ -32,11 +37,10 @@ public class UserLoginView extends AbsoluteLayout{
     public void createPage() {
         gameNum = new TextField();
         nickName = new TextField();
-        send = new Button("Send");
+        Button send = new Button("Send");
 
         gameNum.setPlaceholder("Game Number");
         nickName.setPlaceholder("Nickname");
-        gameNum.setRequired(true);
 
         send.addClickListener(e -> {
             if(!nickName.getValue().isEmpty() && !gameNum.getValue().isEmpty()) {
@@ -70,7 +74,7 @@ public class UserLoginView extends AbsoluteLayout{
         items.setHeight((float) CurrentPageDimensions.getHeight() /3, Unit.PIXELS);
         items.setWidth((float) CurrentPageDimensions.getWidth() /3, Unit.PIXELS);
 
-        title = new H1("Schutudy Sets");
+        H1 title = new H1("Schutudy Sets");
         title.setWidth((float) CurrentPageDimensions.getWidth() /4, Unit.PIXELS);
         title.getStyle().set("font-size", "55px");
         title.getStyle().set("text-align", "center");

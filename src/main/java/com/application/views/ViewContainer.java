@@ -4,7 +4,7 @@ import com.application.views.host_views.HostLeaderboardView;
 import com.application.views.user_views.QuestionContainer;
 import com.application.views.user_views.UserLoginView;
 import com.application.views.user_views.WaitingView;
-import com.application.views.backend.CurrentPageDimensions;
+import com.application.views.backend.utils.CurrentPageDimensions;
 import com.application.views.host_views.HostLoginView;
 import com.application.views.host_views.HostStartGameView;
 import com.vaadin.flow.component.UI;
@@ -14,10 +14,18 @@ import com.vaadin.flow.router.AfterNavigationObserver;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinSession;
 
+/*
+    The ViewContainer class is active and displayed at all times, and contains
+    an instance of another View class within it
+
+    Allows for seamless swapping of actively displayed view, skipping any
+    otherwise necessary page-loading/reloading steps
+*/
 @Route(value = "", layout = MainLayout.class)
 public class ViewContainer extends VerticalLayout implements AfterNavigationObserver {
-    static int rel = 0;
+    static int rel = 0; // for tracking reloads
 
+    // Views
     private UserLoginView userLoginView;
     private HostLoginView hostLoginView;
     private QuestionContainer questionContainer;
@@ -25,11 +33,12 @@ public class ViewContainer extends VerticalLayout implements AfterNavigationObse
     private HostStartGameView hostStartGameView;
     private HostLeaderboardView hostLeaderboardView;
 
+    //internal
     private String gameNumber = "";
     private String currentView = "";
-
     UI ui;
 
+    // Adds ViewContainer instance to the current session
     public ViewContainer() {
         UI.getCurrent().getSession().setAttribute("viewContainer", this);
 
@@ -44,6 +53,7 @@ public class ViewContainer extends VerticalLayout implements AfterNavigationObse
         });
     }
 
+    // Creates all used class instances
     public void initialize() {
         userLoginView = new UserLoginView();
         hostLoginView = new HostLoginView();
@@ -65,13 +75,16 @@ public class ViewContainer extends VerticalLayout implements AfterNavigationObse
         return gameNumber;
     }
 
+    // Swaps actively displayed View in the session's ViewContainer instance
     public void changeToView(String viewName) {
         currentView = viewName;
 
+        // Locks current session to ensure thread safety
         ui.access(() -> {
             VaadinSession.getCurrent().getLockInstance().lock();
             ui.removeAll();
 
+            // Swaps active View, not inactive Views/elements are ignored by Vaadin
             switch (viewName) {
                 case "userLoginView":
                     userLoginView.createPage();

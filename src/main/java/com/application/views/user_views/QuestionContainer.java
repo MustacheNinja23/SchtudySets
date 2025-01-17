@@ -1,7 +1,7 @@
 package com.application.views.user_views;
 
 import com.application.views.ViewContainer;
-import com.application.views.backend.CurrentPageDimensions;
+import com.application.views.backend.utils.CurrentPageDimensions;
 import com.application.views.backend.game_classes.AllGames;
 import com.application.views.backend.game_classes.Game;
 import com.application.views.backend.game_classes.User;
@@ -15,18 +15,24 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 
 import java.util.ArrayList;
 
+/*
+    Contains multiple instances of the QuestionView class, and allows
+    changing between these instances through a custom menu on the left
+    side of the screen
+*/
 public class QuestionContainer extends HorizontalLayout {
+    // internal
     private ViewContainer container = ((ViewContainer) UI.getCurrent().getSession().getAttribute("viewContainer"));
     private User me = ((User) container.getUi().getSession().getAttribute("currentUser"));
+    private String gameNumber;
 
+    //elements
     private Game game;
     private ArrayList<Question> questions;
     private ArrayList<QuestionView> questionViews;
-
-    private String gameNumber;
-
-    Div linkArea;
-    Div questionArea;
+    private VerticalLayout layout;
+    private Div linkArea;
+    private Div questionArea;
 
     public QuestionContainer(){
         CurrentPageDimensions.update();
@@ -53,7 +59,7 @@ public class QuestionContainer extends HorizontalLayout {
         linkArea.getStyle().set("background-color", "gray");
         linkArea.setHeight(CurrentPageDimensions.getHeight(), Unit.PIXELS);
         linkArea.setWidth((float) CurrentPageDimensions.getWidth() /6, Unit.PIXELS);
-        VerticalLayout layout = new VerticalLayout();
+        layout = new VerticalLayout();
         linkArea.add(layout);
         for(int i = 0; i < questions.size(); i++){
             int finalI = i;

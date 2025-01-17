@@ -1,9 +1,9 @@
 package com.application.views.host_views;
 
 import com.application.views.ViewContainer;
-import com.application.views.backend.AbsoluteLayout;
+import com.application.views.backend.utils.AbsoluteLayout;
 import com.application.views.backend.game_classes.AllGames;
-import com.application.views.backend.CurrentPageDimensions;
+import com.application.views.backend.utils.CurrentPageDimensions;
 import com.application.views.backend.game_classes.Game;
 import com.application.views.backend.question_classes.AllQuestions;
 import com.application.views.backend.question_classes.Identifier;
@@ -17,14 +17,20 @@ import com.vaadin.flow.component.radiobutton.RadioButtonGroup;
 import com.vaadin.flow.component.radiobutton.RadioGroupVariant;
 import com.vaadin.flow.component.textfield.TextField;
 
+/*
+    Allows creation of a new Game instance, which is then added to
+    the AllGames class
+*/
 public class HostLoginView extends AbsoluteLayout{
-    private ViewContainer container = ((ViewContainer) UI.getCurrent().getSession().getAttribute("viewContainer"));
+    // internal
+    private final ViewContainer container = ((ViewContainer) UI.getCurrent().getSession().getAttribute("viewContainer"));
 
-    private Button send;
-    private VerticalLayout options;
+    // elements
     private RadioButtonGroup<String> difficulties;
     private CheckboxGroup<String> types;
     private TextField numQuestions;
+    private Button send;
+    private VerticalLayout options;
 
     public HostLoginView() {
         CurrentPageDimensions.update();
@@ -45,18 +51,19 @@ public class HostLoginView extends AbsoluteLayout{
 
         numQuestions = new TextField("Number of Questions (Leave blank for 10, max of ___)");
 
+        // Creates Game on click using inputs from fields instantiated above
         send = new Button("Create Game", event -> {
-            if(difficulties.isEmpty()){
+            if (difficulties.isEmpty()) {
                 Notification.show("Please select difficulty");
-            }else if(types.isEmpty() || numQuestions.isEmpty()){
-                if(types.isEmpty() && !numQuestions.isEmpty()){
+            } else if (types.isEmpty() || numQuestions.isEmpty()) {
+                if (types.isEmpty() && !numQuestions.isEmpty()) {
                     createGame(difficulties.getValue(), AllQuestions.types, numQuestions.getValue());
-                }else if(!types.isEmpty() && numQuestions.isEmpty()){
+                } else if (!types.isEmpty() && numQuestions.isEmpty()) {
                     createGame(difficulties.getValue(), types.getValue().toArray(new String[0]), "10");
-                }else {
+                } else {
                     createGame(difficulties.getValue(), AllQuestions.types, "10");
                 }
-            }else{
+            } else {
                 createGame(difficulties.getValue(), types.getValue().toArray(new String[0]), numQuestions.getValue());
             }
         });
@@ -68,12 +75,15 @@ public class HostLoginView extends AbsoluteLayout{
     }
 
     public void createGame(String difficulty, String[] questionTypes, String numQuestions){
-        String gameNumber = "";
-        for(int i = 0; i < 4; i++) gameNumber += (int)(Math.random() * 10);
-        container.setGameNumber(gameNumber);
+        StringBuilder gameNumber = new StringBuilder();
+        do{ // Loop to create gameNumber, retries if the generated String is already in use
+            gameNumber.delete(0, gameNumber.length());
+            for(int i = 0; i < 4; i++) gameNumber.append((int) (Math.random() * 10));
+        }while(!AllGames.allGames.containsKey(gameNumber.toString()));
+        container.setGameNumber(gameNumber.toString());
 
-        AllGames.addGame(new Game(
-                gameNumber,
+        AllGames.addGame(new Game( // Adds Game to HashMap allGames
+                gameNumber.toString(),
                 new Identifier(difficulty, questionTypes),
                 Integer.parseInt(numQuestions)
         ));
