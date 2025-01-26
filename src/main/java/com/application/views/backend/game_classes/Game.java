@@ -42,11 +42,6 @@ public class Game {
     }
 
     public void addUser(User user) {
-        for(User u : users.values()) {
-            if(user.getNickName().equals(u.getNickName())) {
-                continue;
-            }
-        }
         users.put(user.getNickName(), user);
     }
 }

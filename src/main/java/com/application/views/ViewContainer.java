@@ -84,7 +84,7 @@ public class ViewContainer extends VerticalLayout implements AfterNavigationObse
             VaadinSession.getCurrent().getLockInstance().lock();
             ui.removeAll();
 
-            // Swaps active View, not inactive Views/elements are ignored by Vaadin
+            // Swaps active View, inactive Views/elements are ignored by Vaadin
             switch (viewName) {
                 case "userLoginView":
                     userLoginView.createPage();

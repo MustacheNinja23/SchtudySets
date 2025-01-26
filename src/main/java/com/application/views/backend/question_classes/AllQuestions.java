@@ -49,19 +49,17 @@ public class AllQuestions {
             questions.put(id, new ArrayList<Question>());
 
             do{
-                if(temp.charAt(0) == '*') {
-                    break;
+                if(temp.charAt(0) != '*') {
+                    questions.get(id).add(
+                        new Question(
+                            temp,
+                            id,
+                            new Answer(Double.parseDouble(iterator.next())),
+                            iterator.next()
+                        )
+                    );
+                    iterator.next();  //skip empty lines
                 }
-
-                questions.get(id).add(
-                    new Question(
-                        temp,
-                        id,
-                        new Answer(Double.parseDouble(iterator.next())),
-                        iterator.next()
-                    )
-                );
-                iterator.next();  //skip empty lines
                 temp = iterator.next();
             } while(temp.charAt(0) != '*');
         }

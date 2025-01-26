@@ -44,18 +44,23 @@ public class UserLoginView extends AbsoluteLayout{
 
         send.addClickListener(e -> {
             if(!nickName.getValue().isEmpty() && !gameNum.getValue().isEmpty()) {
-                boolean check = false;
-                for(String s : AllGames.allGames.keySet()){
-                    if(gameNum.getValue().equals(s)){
+                if(AllGames.allGames.containsKey(gameNum.getValue())){
+                    boolean checkName = true;
+                    for(User u : AllGames.allGames.get(gameNum.getValue()).getUsersAsList()){
+                        if(u.getNickName().equals(nickName.getValue())){
+                            checkName = false;
+                        }
+                    }
+
+                    if(checkName){
                         User me = new User(VaadinSession.getCurrent(), nickName.getValue(), gameNum.getValue());
                         AllGames.allGames.get(gameNum.getValue()).addUser(me);
                         container.setGameNumber(gameNum.getValue());
-                        check = true;
                         container.changeToView("waitingView");
-                        break;
+                    }else{
+                        Notification.show("Nickname is already in use");
                     }
-                }
-                if(!check){
+                }else{
                     Notification.show("Game Number does not exist");
                 }
             }else{
