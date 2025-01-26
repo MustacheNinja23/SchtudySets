@@ -47,10 +47,5 @@ public class WaitingView extends AbsoluteLayout { //TODO: waiting
         title.setWidth(CurrentPageDimensions.getWidth(), Unit.PIXELS);
 
         this.add(title, CurrentPageDimensions.getHeight() * 5/12, CurrentPageDimensions.getWidth() * 5/12);
-
-
-
-
-
     }
 }

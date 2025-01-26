@@ -79,7 +79,7 @@ public class HostLoginView extends AbsoluteLayout{
         do{ // Loop to create gameNumber, retries if the generated String is already in use
             gameNumber.delete(0, gameNumber.length());
             for(int i = 0; i < 4; i++) gameNumber.append((int) (Math.random() * 10));
-        }while(!AllGames.allGames.containsKey(gameNumber.toString()));
+        }while(AllGames.allGames.containsKey(gameNumber.toString()));
         container.setGameNumber(gameNumber.toString());
 
         AllGames.addGame(new Game( // Adds Game to HashMap allGames

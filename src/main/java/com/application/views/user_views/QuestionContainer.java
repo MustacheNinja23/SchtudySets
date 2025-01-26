@@ -49,11 +49,14 @@ public class QuestionContainer extends HorizontalLayout {
         initialize();
         System.out.println("asd");
 
+        int s = 1;
         for(Question question : questions){
-            questionViews.add(new QuestionView(me, question));
+            questionViews.add(new QuestionView(me, question, s));
+            s++;
         }
 
-        questionArea = questionViews.get(0);
+        questionArea = new Div();
+        questionArea.add(questionViews.getFirst());
 
         linkArea = new Div();
         linkArea.getStyle().set("background-color", "gray");
@@ -65,7 +68,7 @@ public class QuestionContainer extends HorizontalLayout {
             int finalI = i;
             layout.add(new Button("Question " + (i+1), event -> {
                 questionArea.removeAll();
-                questionArea = questionViews.get(finalI);
+                questionArea.add(questionViews.get(finalI));
             }));
         }
 

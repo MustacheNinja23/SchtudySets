@@ -49,6 +49,7 @@ public class UserLoginView extends AbsoluteLayout{
                     for(User u : AllGames.allGames.get(gameNum.getValue()).getUsersAsList()){
                         if(u.getNickName().equals(nickName.getValue())){
                             checkName = false;
+                            break;
                         }
                     }
 

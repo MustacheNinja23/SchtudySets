@@ -28,7 +28,7 @@ public class QuestionView extends AbsoluteLayout { //TODO: all'a this
     private Button submit;
     private Image image;
 
-    public QuestionView(User me, Question question) {
+    public QuestionView(User me, Question question, int i) {
         CurrentPageDimensions.update();
 
         answer = new TextField("Answer");
@@ -41,7 +41,7 @@ public class QuestionView extends AbsoluteLayout { //TODO: all'a this
 
         //image = new Image(question.getImageAdd(), "");
 
-        add(new Text(question.getQues()));
+        add(new Text(question.getQues() + i));
         //add(image, CurrentPageDimensions.getHeight()/2, CurrentPageDimensions.getWidth()/3);
         add(new Div(answer, submit), CurrentPageDimensions.getHeight() * 5/6, CurrentPageDimensions.getWidth()/3);
     }
