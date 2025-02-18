@@ -5,7 +5,11 @@ import com.application.views.backend.question_classes.Identifier;
 import com.application.views.backend.question_classes.Question;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
+
+import static java.util.Collections.sort;
 
 /*
     Contains all identifying information and a HashMap of users for a Game instance
@@ -14,15 +18,31 @@ public class Game {
     private HashMap<String, User> users;
     private final String gameNumber;
     private final ArrayList<Question> questions;
+    private boolean gameIsStarted;
 
     public Game(String gameNumber, Identifier id, int numberOfQuestions) {
         users = new HashMap<>();
         questions = AllQuestions.createListOfQuestions(id, numberOfQuestions);
         this.gameNumber = gameNumber;
+        gameIsStarted = false;
     }
 
-    public User[] getUsersAsList() {
-        return users.values().toArray(new User[0]);
+    public ArrayList<User> getUsersAsList() {
+        return new ArrayList<>(users.values());
+    }
+
+    public ArrayList<User> getUsersAsSortedList() {
+        ArrayList<User> userArrayList = getUsersAsList();
+        Collections.sort(userArrayList);
+        return userArrayList;
+    }
+
+    public void startGame() {
+        gameIsStarted = true;
+    }
+
+    public boolean isStarted() {
+        return gameIsStarted;
     }
 
     public User getUser(String name) {

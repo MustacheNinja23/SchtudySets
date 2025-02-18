@@ -19,7 +19,7 @@ public class Identifier {
         return types;
     }
 
-    public String getDiff() {
+    public String getDifficulty() {
         return diff;
     }
 

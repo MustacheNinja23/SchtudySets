@@ -4,20 +4,17 @@ import com.application.views.backend.game_classes.User;
 
 public class ScoreUpdateEvent {
     private User user;
-    private int score;
 
-    public ScoreUpdateEvent(User u, int s) {
-        user = u;
-        score = s;
+    public ScoreUpdateEvent(User user) {
+        this.user = user;
     }
 
-    public User getUser(){
+    public void updateScore(int score) {
+        //TODO: Score calculation
+        user.updateScore(score);
+    }
+
+    public User getUser() {
         return user;
     }
-
-    public int getScore(){
-        return score;
-    }
-
-    //public int calculateScore(int prev, int next) {}
 }

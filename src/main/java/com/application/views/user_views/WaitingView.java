@@ -2,6 +2,7 @@ package com.application.views.user_views;
 
 import com.application.views.ViewContainer;
 import com.application.views.backend.broadcasters.StartGameEventBroadcaster;
+import com.application.views.backend.game_classes.AllGames;
 import com.application.views.backend.game_classes.User;
 import com.application.views.backend.utils.AbsoluteLayout;
 import com.application.views.backend.utils.CurrentPageDimensions;
@@ -24,8 +25,14 @@ public class WaitingView extends AbsoluteLayout { //TODO: waiting
 
     @Override
     protected void onAttach(AttachEvent attachEvent) {
+        //check if the game is already started, join immediately if so
+        //  otherwise, await the game start broadcast
+        if(AllGames.allGames.get(container.getGameNumber()).isStarted()){
+            container.changeToView("questionView");
+        }
+
         registration = StartGameEventBroadcaster.register(message -> {
-            if(message.equals(container.getGameNumber())){
+            if (message.equals(container.getGameNumber())) {
                 container.changeToView("questionView");
             }
         });

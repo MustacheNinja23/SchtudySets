@@ -1,5 +1,6 @@
 package com.application.views.backend.broadcasters;
 
+import com.application.views.backend.game_classes.User;
 import com.vaadin.flow.shared.Registration;
 import org.atmosphere.cpr.Broadcaster;
 
@@ -8,13 +9,12 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.function.Consumer;
 
-public class UpdateScoreBroadcaster {
+public class JoinGameEventBroadcaster {
     static Executor executor = Executors.newSingleThreadExecutor();
 
-    static LinkedList<Consumer<ScoreUpdateEvent>> listeners = new LinkedList<>();
+    static LinkedList<Consumer<User>> listeners = new LinkedList<>();
 
-    public static synchronized Registration register(
-            Consumer<ScoreUpdateEvent> listener) {
+    public static synchronized Registration register(Consumer<User> listener) {
         listeners.add(listener);
 
         return () -> {
@@ -24,9 +24,12 @@ public class UpdateScoreBroadcaster {
         };
     }
 
-    public static synchronized void broadcast(ScoreUpdateEvent scoreUpdateEvent) {
-        for (Consumer<ScoreUpdateEvent> listener : listeners) {
-            executor.execute(() -> listener.accept(scoreUpdateEvent));
+    public static synchronized void broadcast(User user) {
+        System.out.println("broadcast JoinGameEvent to game " + user.getGameNumber());
+        for (Consumer<User> listener : listeners) {
+            executor.execute(() -> {
+                listener.accept(user);
+            });
         }
     }
 }

@@ -1,11 +1,11 @@
 package com.application.views.user_views;
 
 import com.application.views.ViewContainer;
+import com.application.views.backend.broadcasters.JoinGameEventBroadcaster;
 import com.application.views.backend.utils.AbsoluteLayout;
 import com.application.views.backend.game_classes.AllGames;
 import com.application.views.backend.utils.CurrentPageDimensions;
 import com.application.views.backend.game_classes.User;
-import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.Unit;
 import com.vaadin.flow.component.button.Button;
@@ -14,7 +14,6 @@ import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.server.VaadinSession;
 
 /*
     Initial active View for all sessions
@@ -54,9 +53,11 @@ public class UserLoginView extends AbsoluteLayout{
                     }
 
                     if(checkName){
-                        User me = new User(VaadinSession.getCurrent(), nickName.getValue(), gameNum.getValue());
+                        User me = new User(nickName.getValue(), gameNum.getValue());
                         AllGames.allGames.get(gameNum.getValue()).addUser(me);
                         container.setGameNumber(gameNum.getValue());
+                        container.initializeQuestionContainer(nickName.getValue());
+                        JoinGameEventBroadcaster.broadcast(me);
                         container.changeToView("waitingView");
                     }else{
                         Notification.show("Nickname is already in use");
@@ -68,7 +69,6 @@ public class UserLoginView extends AbsoluteLayout{
                 Notification.show("Please enter a Game Number and a Nickname");
             }
         });
-        send.addClickShortcut(Key.ENTER);
 
         Button goToHostView = new Button("host game", e -> {
             container.changeToView("hostLoginView");

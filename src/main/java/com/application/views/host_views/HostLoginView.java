@@ -88,6 +88,6 @@ public class HostLoginView extends AbsoluteLayout{
                 Integer.parseInt(numQuestions)
         ));
 
-        container.changeToView("hostStartGameView");
+        container.changeToView("hostGameView");
     }
 }

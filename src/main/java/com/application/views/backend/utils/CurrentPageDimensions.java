@@ -3,6 +3,8 @@ package com.application.views.backend.utils;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.page.BrowserWindowResizeEvent;
 
+import javax.lang.model.element.Element;
+
 /*
     Custom utility class that uses the current session window
     to retrieve precise sizes/locations

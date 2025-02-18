@@ -14,10 +14,16 @@ public class AllGames {
 
     public static void addGame(Game game) {
         allGames.put(game.getGameNumber(), game);
-        System.out.println(allGames.get(game.getGameNumber()).getGameNumber());
+        System.out.println("created game " + game.getGameNumber());
     }
 
     public static Game getGame(String gameNumber) {
         return allGames.get(gameNumber);
+    }
+
+    public static void printAllGames() {
+        for (Game game : allGames.values()) {
+            System.out.print(game.getGameNumber() + ", ");
+        }
     }
 }

@@ -34,11 +34,11 @@ public class Question {
         return id.getTypes();
     }
 
-    public String getDiff(){
-        return id.getDiff();
+    public String getDifficulty(){
+        return id.getDifficulty();
     }
 
-    public String getImageAdd(){
+    public String getImageAddress(){
         return img;
     }
 

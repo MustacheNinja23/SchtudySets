@@ -23,36 +23,37 @@ import java.util.ArrayList;
 public class QuestionContainer extends HorizontalLayout {
     // internal
     private ViewContainer container = ((ViewContainer) UI.getCurrent().getSession().getAttribute("viewContainer"));
-    private User me = ((User) container.getUi().getSession().getAttribute("currentUser"));
+    private User me;
     private String gameNumber;
+    private Game game;
 
     //elements
-    private Game game;
     private ArrayList<Question> questions;
     private ArrayList<QuestionView> questionViews;
     private VerticalLayout layout;
     private Div linkArea;
     private Div questionArea;
 
-    public QuestionContainer(){
+    public QuestionContainer(String nickName){
         CurrentPageDimensions.update();
+        initialize(nickName);
     }
 
-    public void initialize(){
+    public void initialize(String nickName){
         gameNumber = container.getGameNumber();
         game = AllGames.getGame(gameNumber);
+        me = game.getUser(nickName);
         questions = game.getQuestions();
         questionViews = new ArrayList<>();
     }
 
     public void createPage(){
-        initialize();
-        System.out.println("asd");
+        initialize(me.getNickName());
 
-        int s = 1;
+        int questionNumber = 1;
         for(Question question : questions){
-            questionViews.add(new QuestionView(me, question, s));
-            s++;
+            questionViews.add(new QuestionView(me, question, questionNumber));
+            questionNumber++;
         }
 
         questionArea = new Div();

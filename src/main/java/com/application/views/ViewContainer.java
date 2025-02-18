@@ -1,12 +1,11 @@
 package com.application.views;
 
-import com.application.views.host_views.HostLeaderboardView;
 import com.application.views.user_views.QuestionContainer;
 import com.application.views.user_views.UserLoginView;
 import com.application.views.user_views.WaitingView;
 import com.application.views.backend.utils.CurrentPageDimensions;
 import com.application.views.host_views.HostLoginView;
-import com.application.views.host_views.HostStartGameView;
+import com.application.views.host_views.HostGameView;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.AfterNavigationEvent;
@@ -30,8 +29,7 @@ public class ViewContainer extends VerticalLayout implements AfterNavigationObse
     private HostLoginView hostLoginView;
     private QuestionContainer questionContainer;
     private WaitingView waitingView;
-    private HostStartGameView hostStartGameView;
-    private HostLeaderboardView hostLeaderboardView;
+    private HostGameView hostGameView;
 
     //internal
     private String gameNumber = "";
@@ -49,20 +47,25 @@ public class ViewContainer extends VerticalLayout implements AfterNavigationObse
 
         UI.getCurrent().getPage().addBrowserWindowResizeListener(e -> {
             CurrentPageDimensions.update(e);
+            this.removeAll();
             changeToView(currentView);
         });
     }
 
-    // Creates all used class instances
+    // Creates most used class instances
     public void initialize() {
         userLoginView = new UserLoginView();
         hostLoginView = new HostLoginView();
-        questionContainer = new QuestionContainer();
         waitingView = new WaitingView();
-        hostStartGameView = new HostStartGameView();
-        hostLeaderboardView = new HostLeaderboardView();
+        hostGameView = new HostGameView();
     }
 
+    //seperated from the initialize() method so questionContainer con be instantiated later
+    public void initializeQuestionContainer(String nickName) {
+        questionContainer = new QuestionContainer(nickName);
+    }
+
+    //utility methods
     public UI getUi() {
         return UI.getCurrent();
     }
@@ -86,29 +89,32 @@ public class ViewContainer extends VerticalLayout implements AfterNavigationObse
 
             // Swaps active View, inactive Views/elements are ignored by Vaadin
             switch (viewName) {
+                //user views
                 case "userLoginView":
+                    userLoginView.removeAll();
                     userLoginView.createPage();
                     ui.add(userLoginView);
                     break;
-                case "hostLoginView":
-                    hostLoginView.createPage();
-                    ui.add(hostLoginView);
-                    break;
-                case "questionView":
-                    questionContainer.createPage();
-                    ui.add(questionContainer);
-                    break;
                 case "waitingView":
+                    waitingView.removeAll();
                     waitingView.createPage();
                     ui.add(waitingView);
                     break;
-                case "hostStartGameView":
-                    hostStartGameView.createPage();
-                    ui.add(hostStartGameView);
+                case "questionView":
+                    questionContainer.removeAll();
+                    questionContainer.createPage();
+                    ui.add(questionContainer);
                     break;
-                case "hostLeaderboardView":
-                    hostLeaderboardView.createPage();
-                    ui.add(hostStartGameView);
+                //host views
+                case "hostLoginView":
+                    hostLoginView.removeAll();
+                    hostLoginView.createPage();
+                    ui.add(hostLoginView);
+                    break;
+                case "hostGameView":
+                    hostGameView.removeAll();
+                    hostGameView.createPage();
+                    ui.add(hostGameView);
                     break;
             }
 

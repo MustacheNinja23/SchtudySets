@@ -23,9 +23,10 @@ public class StartGameEventBroadcaster{  //https://vaadin.com/docs/latest/flow/a
         };
     }
 
-    public static synchronized void broadcast(String message) {
+    public static synchronized void broadcast(String gameNumber) {
+        System.out.println("broadcast StartGameEvent on game " + gameNumber);
         for (Consumer<String> listener : listeners) {
-            executor.execute(() -> listener.accept(message));
+            executor.execute(() -> listener.accept(gameNumber));
         }
     }
 }

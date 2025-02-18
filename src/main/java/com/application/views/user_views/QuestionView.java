@@ -1,10 +1,10 @@
 package com.application.views.user_views;
 
 import com.application.views.ViewContainer;
+import com.application.views.backend.broadcasters.ScoreUpdateEvent;
 import com.application.views.backend.utils.AbsoluteLayout;
 import com.application.views.backend.utils.CurrentPageDimensions;
-import com.application.views.backend.broadcasters.ScoreUpdateEvent;
-import com.application.views.backend.broadcasters.UpdateScoreBroadcaster;
+import com.application.views.backend.broadcasters.UpdateScoreEventBroadcaster;
 import com.application.views.backend.game_classes.User;
 import com.application.views.backend.question_classes.Answer;
 import com.application.views.backend.question_classes.Question;
@@ -18,6 +18,8 @@ import com.vaadin.flow.component.textfield.TextField;
 /*
     Contains the visual representation of a Question instance
     that can be interacted with by an active user
+
+    Contained within the QuestionContainer view
 */
 public class QuestionView extends AbsoluteLayout { //TODO: all'a this
     // internal
@@ -35,7 +37,7 @@ public class QuestionView extends AbsoluteLayout { //TODO: all'a this
         submit = new Button("Submit", event -> {
             Answer ans = new Answer(Double.parseDouble(answer.getValue()));
             if(ans.compareTo(question.getAnswer()) == 0){
-                UpdateScoreBroadcaster.broadcast(new ScoreUpdateEvent(me, me.getScore()));
+                UpdateScoreEventBroadcaster.broadcast(new ScoreUpdateEvent(me));
             }
         });
 
