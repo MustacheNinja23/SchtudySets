@@ -6,14 +6,23 @@ import com.application.views.backend.utils.AbsoluteLayout;
 import com.application.views.backend.game_classes.AllGames;
 import com.application.views.backend.utils.CurrentPageDimensions;
 import com.application.views.backend.game_classes.User;
+import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.Unit;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.charts.model.Shape;
+import com.vaadin.flow.component.dnd.DragSource;
+import com.vaadin.flow.component.dnd.DropTarget;
+import com.vaadin.flow.component.dnd.EffectAllowed;
+import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.map.Map;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+
+import java.awt.*;
 
 /*
     Initial active View for all sessions

@@ -1,5 +1,9 @@
 package com.application.views.backend.utils;
 
+import com.github.javaparser.quality.NotNull;
+import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.HasSize;
+import com.vaadin.flow.component.HtmlComponent;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.page.BrowserWindowResizeEvent;
 
@@ -31,5 +35,26 @@ public class CurrentPageDimensions{
     public static void update(BrowserWindowResizeEvent event) {
         height = event.getHeight();
         width = event.getWidth();
+    }
+
+
+    //converts pixel size measurements of the element to integers
+    //  this requires removing all characters from the decimal point on
+    public static int getComponentWidth(@NotNull HasSize component) {
+        StringBuilder tempWidthString = new StringBuilder();
+        for(char c : component.getWidth().toCharArray()) {
+            if(c == 46) break;
+            tempWidthString.append(c);
+        }
+        return Integer.parseInt(tempWidthString.toString());
+    }
+
+    public static int getComponentHeight(@NotNull HasSize component) {
+        StringBuilder tempHeightString = new StringBuilder();
+        for(char c : component.getHeight().toCharArray()) {
+            if(c == 46) break;
+            tempHeightString.append(c);
+        }
+        return Integer.parseInt(tempHeightString.toString());
     }
 }

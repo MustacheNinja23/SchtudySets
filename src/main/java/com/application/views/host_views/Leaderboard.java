@@ -45,7 +45,6 @@ public class Leaderboard extends VerticalLayout {
 
         AbsoluteLayout temp;
         H1 nickName, score;
-        game.addUser(new User("me", game.getGameNumber()));
         for(User u : game.getUsersAsSortedList()){
             temp = new AbsoluteLayout();
             temp.setHeight((float) CurrentPageDimensions.getHeight() / 16, Unit.PIXELS);
@@ -58,21 +57,8 @@ public class Leaderboard extends VerticalLayout {
             score = new H1("" + u.getScore());
             score.getStyle().set("font-size", "40px");
 
-            //converts pixel size measurements of the temp element to integers
-            //  this requires removing all characters from the decimal point on
-            StringBuilder tempWidthString = new StringBuilder();
-            for(char c : temp.getWidth().toCharArray()) {
-                if(c == 46) break;
-                tempWidthString.append(c);
-            }
-            int tempWidth = Integer.parseInt(tempWidthString.toString());
-
-            StringBuilder tempHeightString = new StringBuilder();
-            for(char c : temp.getHeight().toCharArray()) {
-                if(c == 46) break;
-                tempHeightString.append(c);
-            }
-            int tempHeight = Integer.parseInt(tempHeightString.toString());
+            int tempHeight = CurrentPageDimensions.getComponentHeight(temp);
+            int tempWidth = CurrentPageDimensions.getComponentWidth(temp);
 
             temp.add(nickName,
                     tempHeight / 8,

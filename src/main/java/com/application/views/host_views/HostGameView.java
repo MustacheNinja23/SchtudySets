@@ -34,8 +34,8 @@ public class HostGameView extends AbsoluteLayout {
     private Game game;
 
     // elements
-    Button startGame, endGame;
-    Leaderboard leaderboard;
+    private Button startGame, endGame;
+    private Leaderboard leaderboard;
 
     // Event Listener for ScoreUpdateEvents sent by users in the same game
     @Override
