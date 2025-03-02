@@ -96,9 +96,7 @@ public class HostGameView extends AbsoluteLayout {
         }
 
         //end game button
-        Button endGame = new Button("End Game", _ -> {
-            AllGames.allGames.remove(gameNumber);
-        });
+        Button endGame = new Button("End Game", _ -> AllGames.allGames.remove(gameNumber));
         startGame.getStyle().set("font-size", "30");
 
         add(endGame, CurrentPageDimensions.getHeight() * 13 / 16, CurrentPageDimensions.getWidth() * 10 / 16);
