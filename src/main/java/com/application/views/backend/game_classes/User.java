@@ -8,7 +8,6 @@ import com.vaadin.flow.server.VaadinSession;
     User class associated with an active session
 */
 public class User implements Comparable<User> {
-    public VaadinSession session;
     private final String nickName;
     private final String gameNumber;
     private int score = 0;

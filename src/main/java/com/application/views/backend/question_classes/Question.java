@@ -15,34 +15,38 @@ public class Question {
     Answer ans;
     String img;
 
-    public Question(String s, Identifier i, Answer a, String ia){
+    public Question(String s, Identifier i, Answer a, String ia) {
         ques = s;
         id = i;
         ans = a;
         img = ia;
     }
 
-    public Answer getAnswer(){
+    public Answer getAnswer() {
         return ans;
     }
 
-    public String getQues(){
+    public String getQues() {
         return ques;
     }
 
-    public String[] getType(){
+    public String[] getType() {
         return id.getTypes();
     }
 
-    public String getDifficulty(){
+    public String getDifficulty() {
         return id.getDifficulty();
     }
 
-    public String getImageAddress(){
+    public String getQuestionType() {
+        return id.getQuestionType();
+    }
+
+    public String getImageAddress() {
         return img;
     }
 
-    public String toString(){
-        return "{ " + ques + " : " + id.toString() + " : " + ans.toString() + " : " + img + " }";
+    public String toString() {
+        return "{ " + getQuestionType() + " : " + ques + " : " + id.toString() + " : " + ans.toString() + " : " + img + " }";
     }
 }

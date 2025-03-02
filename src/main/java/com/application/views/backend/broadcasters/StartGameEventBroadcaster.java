@@ -2,12 +2,13 @@ package com.application.views.backend.broadcasters;
 
 import com.vaadin.flow.shared.Registration;
 import org.atmosphere.cpr.Broadcaster;
+
 import java.util.LinkedList;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.function.Consumer;
 
-public class StartGameEventBroadcaster{  //https://vaadin.com/docs/latest/flow/advanced/server-push
+public class StartGameEventBroadcaster {  //https://vaadin.com/docs/latest/flow/advanced/server-push
     static Executor executor = Executors.newSingleThreadExecutor();
 
     static LinkedList<Consumer<String>> listeners = new LinkedList<>();

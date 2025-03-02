@@ -13,10 +13,9 @@ import java.io.FileNotFoundException;
 
 /**
  * The entry point of the Spring Boot application.
- *
+ * <p>
  * Use the @PWA annotation make the application installable on phones, tablets
  * and some desktop browsers.
- *
  */
 @SpringBootApplication
 @Push(PushMode.AUTOMATIC)

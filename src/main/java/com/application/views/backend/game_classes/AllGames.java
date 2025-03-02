@@ -1,6 +1,7 @@
 package com.application.views.backend.game_classes;
 
 import java.util.HashMap;
+
 /*
     Server side class built around the HashMap allGames,
     which contains all instances of the Game class

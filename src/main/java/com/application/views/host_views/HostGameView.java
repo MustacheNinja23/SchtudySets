@@ -37,18 +37,22 @@ public class HostGameView extends AbsoluteLayout {
     private Button startGame, endGame;
     private Leaderboard leaderboard;
 
+    public HostGameView() {
+        CurrentPageDimensions.update();
+    }
+
     // Event Listener for ScoreUpdateEvents sent by users in the same game
     @Override
     protected void onAttach(AttachEvent attachEvent) {
         updateScoreRegistration = UpdateScoreEventBroadcaster.register(scoreUpdate -> {
-            if(scoreUpdate.getUser().getGameNumber().equals(gameNumber)) {
+            if (scoreUpdate.getUser().getGameNumber().equals(gameNumber)) {
                 scoreUpdate.updateScore(1);
                 container.changeToView("hostGameView");
             }
         });
 
         joinGameRegistration = JoinGameEventBroadcaster.register(userJoined -> {
-            if(AllGames.allGames.get(gameNumber).getUsersAsList().contains(userJoined)){
+            if (AllGames.allGames.get(gameNumber).getUsersAsList().contains(userJoined)) {
                 System.out.println("user joined game " + gameNumber);
                 container.changeToView("hostGameView");
             }
@@ -57,32 +61,28 @@ public class HostGameView extends AbsoluteLayout {
 
     // Remove Event Listener on detach
     @Override
-    protected void onDetach(DetachEvent detachEvent){
+    protected void onDetach(DetachEvent detachEvent) {
         updateScoreRegistration.remove();
         updateScoreRegistration = null;
         joinGameRegistration.remove();
         joinGameRegistration = null;
     }
 
-    public HostGameView() {
-        CurrentPageDimensions.update();
-    }
-
-    public void createPage(){
+    public void createPage() {
         //game number display
         gameNumber = container.getGameNumber();
-        for(int i = 0; i < 4; i++){
+        for (int i = 0; i < 4; i++) {
             Div numDiv = new Div();
             H1 numText = new H1("" + gameNumber.charAt(i));
-            numDiv.setWidth((float) CurrentPageDimensions.getWidth() /15, Unit.PIXELS);
-            numDiv.setHeight((float) CurrentPageDimensions.getHeight() /10, Unit.PIXELS);
+            numDiv.setWidth((float) CurrentPageDimensions.getWidth() / 15, Unit.PIXELS);
+            numDiv.setHeight((float) CurrentPageDimensions.getHeight() / 10, Unit.PIXELS);
             numText.getStyle().set("font-size", "50");
             numDiv.getStyle().set("background-color", "gray");
             numDiv.getStyle().set("text-align", "center");
 
             numDiv.add(numText);
 
-            this.add(numDiv, CurrentPageDimensions.getHeight() / 12, CurrentPageDimensions.getWidth()/3 + (CurrentPageDimensions.getWidth() * i/12));
+            this.add(numDiv, CurrentPageDimensions.getHeight() / 12, CurrentPageDimensions.getWidth() / 3 + (CurrentPageDimensions.getWidth() * i / 12));
         }
 
         game = AllGames.allGames.get(gameNumber);
@@ -94,8 +94,8 @@ public class HostGameView extends AbsoluteLayout {
         });
         startGame.getStyle().set("font-size", "30");
 
-        if(!game.isStarted()) {
-            this.add(startGame, CurrentPageDimensions.getHeight() * 13/16, CurrentPageDimensions.getWidth() / 4);
+        if (!game.isStarted()) {
+            this.add(startGame, CurrentPageDimensions.getHeight() * 13 / 16, CurrentPageDimensions.getWidth() / 4);
         }
 
         //end game button
@@ -104,7 +104,7 @@ public class HostGameView extends AbsoluteLayout {
         });
         startGame.getStyle().set("font-size", "30");
 
-        add(endGame, CurrentPageDimensions.getHeight() * 13/16, CurrentPageDimensions.getWidth() * 10/16);
+        add(endGame, CurrentPageDimensions.getHeight() * 13 / 16, CurrentPageDimensions.getWidth() * 10 / 16);
 
         leaderboard = new Leaderboard(gameNumber);
         leaderboard.createPage();

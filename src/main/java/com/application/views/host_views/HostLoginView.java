@@ -1,12 +1,12 @@
 package com.application.views.host_views;
 
 import com.application.views.ViewContainer;
-import com.application.views.backend.utils.AbsoluteLayout;
 import com.application.views.backend.game_classes.AllGames;
-import com.application.views.backend.utils.CurrentPageDimensions;
 import com.application.views.backend.game_classes.Game;
 import com.application.views.backend.question_classes.AllQuestions;
 import com.application.views.backend.question_classes.Identifier;
+import com.application.views.backend.utils.AbsoluteLayout;
+import com.application.views.backend.utils.CurrentPageDimensions;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.checkbox.CheckboxGroup;
@@ -21,7 +21,7 @@ import com.vaadin.flow.component.textfield.TextField;
     Allows creation of a new Game instance, which is then added to
     the AllGames class
 */
-public class HostLoginView extends AbsoluteLayout{
+public class HostLoginView extends AbsoluteLayout {
     // internal
     private final ViewContainer container = ((ViewContainer) UI.getCurrent().getSession().getAttribute("viewContainer"));
 
@@ -36,7 +36,7 @@ public class HostLoginView extends AbsoluteLayout{
         CurrentPageDimensions.update();
     }
 
-    public void createPage(){
+    public void createPage() {
         difficulties = new RadioButtonGroup<>();
         difficulties.isRequired();
         difficulties.setLabel("Difficulty");
@@ -70,21 +70,21 @@ public class HostLoginView extends AbsoluteLayout{
 
         options = new VerticalLayout(difficulties, types, numQuestions);
 
-        this.add(options, CurrentPageDimensions.getHeight()/3, CurrentPageDimensions.getWidth() /5);
-        this.add(send, CurrentPageDimensions.getHeight() * 3/4, CurrentPageDimensions.getWidth() /3);
+        this.add(options, CurrentPageDimensions.getHeight() / 3, CurrentPageDimensions.getWidth() / 5);
+        this.add(send, CurrentPageDimensions.getHeight() * 3 / 4, CurrentPageDimensions.getWidth() / 3);
     }
 
-    public void createGame(String difficulty, String[] questionTypes, String numQuestions){
+    public void createGame(String difficulty, String[] questionTypes, String numQuestions) {
         StringBuilder gameNumber = new StringBuilder();
-        do{ // Loop to create gameNumber, retries if the generated String is already in use
+        do { // Loop to create gameNumber, retries if the generated String is already in use
             gameNumber.delete(0, gameNumber.length());
-            for(int i = 0; i < 4; i++) gameNumber.append((int) (Math.random() * 10));
-        }while(AllGames.allGames.containsKey(gameNumber.toString()));
+            for (int i = 0; i < 4; i++) gameNumber.append((int) (Math.random() * 10));
+        } while (AllGames.allGames.containsKey(gameNumber.toString()));
         container.setGameNumber(gameNumber.toString());
 
         AllGames.addGame(new Game( // Adds Game to HashMap allGames
                 gameNumber.toString(),
-                new Identifier(difficulty, questionTypes),
+                new Identifier(difficulty, null, questionTypes),
                 Integer.parseInt(numQuestions)
         ));
 

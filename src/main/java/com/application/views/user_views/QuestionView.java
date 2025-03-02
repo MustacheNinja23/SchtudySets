@@ -1,24 +1,23 @@
 package com.application.views.user_views;
 
-import com.application.views.ViewContainer;
 import com.application.views.backend.broadcasters.ScoreUpdateEvent;
-import com.application.views.backend.utils.AbsoluteLayout;
-import com.application.views.backend.utils.CurrentPageDimensions;
 import com.application.views.backend.broadcasters.UpdateScoreEventBroadcaster;
 import com.application.views.backend.game_classes.User;
 import com.application.views.backend.question_classes.Answer;
 import com.application.views.backend.question_classes.Question;
+import com.application.views.backend.utils.AbsoluteLayout;
+import com.application.views.backend.utils.CurrentPageDimensions;
 import com.vaadin.flow.component.Text;
-import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.Unit;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.Image;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.server.StreamResource;
 
-import java.io.Reader;
+import java.util.ArrayList;
 
 /*
     Contains the visual representation of a Question instance
@@ -28,62 +27,117 @@ import java.io.Reader;
 */
 public class QuestionView extends AbsoluteLayout {
     // internal
-    private final ViewContainer container = ((ViewContainer) UI.getCurrent().getSession().getAttribute("viewContainer"));
+    private final Question question;
+    private final User me;
     private boolean questionCompleted = false;
-    private Question question;
-    private User me;
-
     // elements
     private TextField answerField;
     private Button submit;
     private Image image;
     private H1 questionDisplay;
+    private VectorFieldView vectorArea;
+
+    private int width, height;
 
     public QuestionView(User me, Question question) {
         CurrentPageDimensions.update();
         this.question = question;
         this.me = me;
-        this.setHeight(CurrentPageDimensions.getHeight() + "");
-        this.setWidth(CurrentPageDimensions.getWidth() / 2 + "");
+    }
+
+    public void setSize() {
+        width = CurrentPageDimensions.getComponentWidth(this);
+        height = CurrentPageDimensions.getComponentHeight(this);
     }
 
     public void createPage() {
         this.removeAll();
 
-        questionDisplay = new H1(question.getQues());
+        switch (question.getQuestionType()) {
+            case "open":
+                questionDisplay = new H1(question.getQues());
+                questionDisplay.setWidth((float) (width * 5) / 12, Unit.PIXELS);
 
-        answerField = new TextField("Answer");
+                answerField = new TextField("Answer");
 
-        submit = new Button("Submit", event -> {
-            Answer ans = new Answer(Double.parseDouble(answerField.getValue()));
-            if(ans.compareTo(question.getAnswer()) == 0) {
-                UpdateScoreEventBroadcaster.broadcast(new ScoreUpdateEvent(me));
-                questionCompleted = true;
-                createPage();
-            }
-        });
+                submit = new Button("Submit", event -> {
+                    Answer ans = new Answer(question.getQuestionType(), new Double[]{Double.parseDouble(answerField.getValue())});
+                    if (ans.compareTo(question.getAnswer()) == 0) {
+                        UpdateScoreEventBroadcaster.broadcast(new ScoreUpdateEvent(me));
+                        questionCompleted = true;
+                        createPage();
+                    } else {
+                        Notification.show("Try Again");
+                    }
+                });
 
-        image = new Image(new StreamResource("image", () -> getClass().getResourceAsStream(question.getImageAddress())), "");
-        image.setHeight("100px");
-        image.setWidth("100px");
+                image = new Image(new StreamResource("image", () -> getClass().getResourceAsStream(question.getImageAddress())), "");
+                image.setHeight("100px");
+                image.setWidth("100px");
 
-        if(!questionCompleted) {
-            this.add(new Div(answerField, submit), CurrentPageDimensions.getComponentHeight(this) * 5/6, CurrentPageDimensions.getComponentWidth(this)/3);
-        } else {
-            Div complete = new Div();
-            complete.setHeight((float) CurrentPageDimensions.getComponentHeight(this) / 6, Unit.PIXELS);
-            complete.setWidth((float) CurrentPageDimensions.getComponentWidth(this) / 3, Unit.PIXELS);
+                if (!questionCompleted) {
+                    this.add(new Div(answerField, submit), height * 5 / 6, width / 12);
+                } else {
+                    Div complete = new Div();
+                    complete.setHeight((float) height / 6, Unit.PIXELS);
+                    complete.setWidth((float) width / 3, Unit.PIXELS);
 
-            Image checkmark = new Image(new StreamResource("checkmark.png", () -> getClass().getResourceAsStream("/checkmark.png")), "");
-            checkmark.setWidth((float) CurrentPageDimensions.getComponentWidth(this) / 12, Unit.PIXELS);
-            checkmark.setHeight(this.getWidth());
+                    Image checkmark = new Image(new StreamResource("checkmark.png", () -> getClass().getResourceAsStream("/checkmark.png")), "");
+                    checkmark.setWidth((float) width / 24, Unit.PIXELS);
+                    checkmark.setHeight((float) width / 24, Unit.PIXELS);
 
-            complete.add(checkmark, new Text("The answer was " + question.getAnswer().toString()));
+                    complete.add(checkmark, new Text("The answer was " + question.getAnswer().toString()));
 
-            add(complete, CurrentPageDimensions.getComponentHeight(this) * 3/4, CurrentPageDimensions.getComponentWidth(this)/3);
+                    this.add(complete, height * 3 / 4, width / 12);
+                }
+
+                this.add(questionDisplay, height / 24, width / 24);
+
+                if (image.getSrc() != null && !image.getSrc().isEmpty())
+                    this.add(image, height / 3, width / 12);
+
+                vectorArea = new VectorFieldView(width / 2, height);
+                vectorArea.getStyle().set("border", "1px solid black");
+                vectorArea.createPage();
+                this.add(vectorArea, 0, width / 2);
+
+                break;
+
+            case "vector":
+                questionDisplay = new H1(question.getQues());
+                questionDisplay.setWidth((float) (width * 11) / 12, Unit.PIXELS);
+
+                submit = new Button("Submit", event -> {
+                    ArrayList<Double> arr = new ArrayList<>();
+                    for (VectorCanvas.VectorAreaShape d : vectorArea.getCanvas().getShapes())
+                        arr.add(d.getVecAngle());
+                    Answer ans = new Answer(question.getQuestionType(), arr.toArray(Double[]::new));
+                    if (ans.compareTo(question.getAnswer()) == 0) {
+                        UpdateScoreEventBroadcaster.broadcast(new ScoreUpdateEvent(me));
+                        questionCompleted = true;
+                        createPage();
+                    } else {
+                        Notification.show("Try Again");
+                    }
+                });
+
+                this.add(questionDisplay, height / 24, width / 24);
+                if (!questionCompleted) {
+                    this.add(submit, height / 6, width * 7 / 10);
+                } else {
+                    Image checkmark = new Image(new StreamResource("checkmark.png", () -> getClass().getResourceAsStream("/checkmark.png")), "");
+                    checkmark.setWidth((float) width / 24, Unit.PIXELS);
+                    checkmark.setHeight((float) width / 24, Unit.PIXELS);
+
+                    this.add(checkmark, height / 6, width * 7 / 10);
+                }
+
+                vectorArea = new VectorFieldView(width, height * 5 / 6);
+                vectorArea.getStyle().set("border", "1px solid black");
+                vectorArea.createPage();
+                this.add(vectorArea, height / 6, 0);
+
+                break;
         }
-
-        add(questionDisplay);
-        if(image.getSrc() != null) add(image, CurrentPageDimensions.getComponentHeight(this)/2, CurrentPageDimensions.getComponentWidth(this)/3);
     }
 }

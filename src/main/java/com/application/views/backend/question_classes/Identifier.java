@@ -9,9 +9,12 @@ import java.util.Arrays;
 public class Identifier {
     private final String[] types;
     private final String diff;
+    private String quesType;
 
-    public Identifier(String d, String... types) {
-        diff = d;
+
+    public Identifier(String diff, String quesType, String... types) {
+        this.diff = diff;
+        this.quesType = quesType;
         this.types = types;
     }
 
@@ -21,6 +24,14 @@ public class Identifier {
 
     public String getDifficulty() {
         return diff;
+    }
+
+    public String getQuestionType() {
+        return quesType;
+    }
+
+    public void setQuestionType(String q) {
+        quesType = q;
     }
 
     public boolean equals(Identifier other) {

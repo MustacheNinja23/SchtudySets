@@ -14,13 +14,13 @@ import java.util.Scanner;
 public class AllQuestions {
     public static HashMap<Identifier, ArrayList<Question>> questions;
     public static String[] types = {  // List of all question types
-        "Projectile Motion",
+            "Projectile Motion",
 
     };
     public static String[] diffs = {  //List of all difficulties
-        "On-level",
-        "Honors",
-        "AP"
+            "On-level",
+            "Honors",
+            "AP"
     };
     public static ArrayList<Identifier> ids = new ArrayList<Identifier>();
 
@@ -29,66 +29,61 @@ public class AllQuestions {
 
         //Create lists and add questions
         Scanner file = new Scanner(new File("src/main/resources/QUESTIONS.txt"));
-        ArrayList<String> fileList = new ArrayList<String>();
-        while(file.hasNextLine()) {
+        ArrayList<String> fileList = new ArrayList<>();
+        while (file.hasNextLine()) {
             fileList.add(file.nextLine());
         }
         file.close();
 
         //create ids for lists & add questions
-        for(String t : types) {
-            for(String d : diffs) {
-                ids.add(new Identifier(d,t));
+        for (String t : types) {
+            for (String d : diffs) {
+                ids.add(new Identifier(d, null, t));
             }
         }
 
         Iterator<String> iterator = fileList.iterator();
         iterator.next();
         String temp = iterator.next();
-        for(Identifier id : ids) {
-            questions.put(id, new ArrayList<Question>());
+        for (Identifier id : ids) {
+            questions.put(id, new ArrayList<>());
 
-            do{
-                if(temp.charAt(0) != '*') {
+            do {
+                if (temp.charAt(0) != '*') {
                     questions.get(id).add(
-                        new Question(
-                            temp,
-                            id,
-                            new Answer(Double.parseDouble(iterator.next())),
-                            iterator.next()
-                        )
+                            new Question(
+                                    iterator.next(),
+                                    new Identifier(id.getDifficulty(), temp, id.getTypes()),
+                                    new Answer(temp, new Double[]{Double.parseDouble(iterator.next())}),
+                                    iterator.next()
+                            )
                     );
                     iterator.next();  //skip empty lines
                 }
                 temp = iterator.next();
-            } while(temp.charAt(0) != '*');
+            } while (temp.charAt(0) != '*');
         }
     }
-
-    //TODO: Likely need more versions of "createListOfQuestions"
 
     public static ArrayList<Question> createListOfQuestions(Identifier id, int number) {
         ArrayList<Question> tempQuestions;
         ArrayList<Question> list;
-        
-        for(Identifier d : ids) {
-            if(id.equals(d)) {
-                tempQuestions = questions.get(d);
-                list = new ArrayList<Question>();
 
-                int rand;
-                for(int i = 0; i < number; i++) {
-                    rand = (int)(Math.random() * tempQuestions.size());
-                    list.add(tempQuestions.get(rand));
-                    tempQuestions.remove(rand);
-                }
-                return list;
-            }
+        tempQuestions = questions.get(id);
+        list = new ArrayList<>();
+
+        int rand;
+        for (int i = 0; i < number; i++) {
+            rand = (int) (Math.random() * tempQuestions.size());
+            list.add(tempQuestions.get(rand));
+            tempQuestions.remove(rand);
         }
-        return null;
+        return list;
     }
 
-
+    public static ArrayList<Question> getNonRandomList() {
+        return new ArrayList<>(questions.get(ids.getFirst()));
+    }
 
     public static ArrayList<Question> getQuestionTypeList(Identifier id) {
         return questions.get(id);
@@ -96,6 +91,6 @@ public class AllQuestions {
 
     public static Question getRandomQuestion(Identifier id) {
         ArrayList<Question> temp = getQuestionTypeList(id);
-        return temp.get((int)(Math.random() * temp.size()));
+        return temp.get((int) (Math.random() * temp.size()));
     }
 }

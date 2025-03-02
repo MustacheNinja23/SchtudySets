@@ -1,16 +1,14 @@
 package com.application.views.host_views;
 
 import com.application.views.ViewContainer;
-import com.application.views.backend.utils.AbsoluteLayout;
-import com.application.views.backend.utils.CurrentPageDimensions;
 import com.application.views.backend.game_classes.AllGames;
 import com.application.views.backend.game_classes.Game;
 import com.application.views.backend.game_classes.User;
-import com.vaadin.flow.component.Text;
+import com.application.views.backend.utils.AbsoluteLayout;
+import com.application.views.backend.utils.CurrentPageDimensions;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.Unit;
 import com.vaadin.flow.component.html.H1;
-import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.shared.Registration;
 
@@ -21,11 +19,10 @@ import com.vaadin.flow.shared.Registration;
 public class Leaderboard extends VerticalLayout {
     // internal
     private final ViewContainer container = ((ViewContainer) UI.getCurrent().getSession().getAttribute("viewContainer"));
-    private Registration registration;
-    private Game game;
-
+    private final Game game;
     // elements
     VerticalLayout leaderboard;
+    private Registration registration;
 
     // Create Page
     public Leaderboard(String gameNumber) {
@@ -33,11 +30,11 @@ public class Leaderboard extends VerticalLayout {
         game = AllGames.getGame(gameNumber);
     }
 
-    public void createPage(){
+    public void createPage() {
         //Credit to https://vaadin.com/forum/t/scrollable-layout/157614 for the scrollable layout
         this.getStyle().set("overflow", "auto");
         this.getStyle().set("border", "1px solid black");
-        this.setWidth((float) CurrentPageDimensions.getWidth() * 3/4, Unit.PIXELS);
+        this.setWidth((float) CurrentPageDimensions.getWidth() * 3 / 4, Unit.PIXELS);
         this.setHeight((float) CurrentPageDimensions.getHeight() / 2, Unit.PIXELS);
         this.getStyle().set("padding", "0px");
         this.getStyle().set("margin", "0px");
@@ -45,7 +42,7 @@ public class Leaderboard extends VerticalLayout {
 
         AbsoluteLayout temp;
         H1 nickName, score;
-        for(User u : game.getUsersAsSortedList()){
+        for (User u : game.getUsersAsSortedList()) {
             temp = new AbsoluteLayout();
             temp.setHeight((float) CurrentPageDimensions.getHeight() / 16, Unit.PIXELS);
             temp.setWidth(this.getWidth());
@@ -67,7 +64,7 @@ public class Leaderboard extends VerticalLayout {
 
             temp.add(score,
                     tempHeight / 8,
-                    tempWidth * 13/16);
+                    tempWidth * 13 / 16);
 
             this.add(temp);
         }

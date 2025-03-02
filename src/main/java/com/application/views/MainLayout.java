@@ -1,7 +1,8 @@
 package com.application.views;
 
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.router.*;
+import com.vaadin.flow.router.Layout;
+import com.vaadin.flow.router.RouterLayout;
 
 /*
     **KEY FOR COMMENTS**
@@ -16,5 +17,6 @@ import com.vaadin.flow.router.*;
 // Default Vaadin class, active container used is the ViewContainer class
 @Layout
 public class MainLayout extends VerticalLayout implements RouterLayout {
-    public MainLayout() {}
+    public MainLayout() {
+    }
 }

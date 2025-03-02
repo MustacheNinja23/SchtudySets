@@ -1,11 +1,11 @@
 package com.application.views;
 
+import com.application.views.backend.utils.CurrentPageDimensions;
+import com.application.views.host_views.HostGameView;
+import com.application.views.host_views.HostLoginView;
 import com.application.views.user_views.QuestionContainer;
 import com.application.views.user_views.UserLoginView;
 import com.application.views.user_views.WaitingView;
-import com.application.views.backend.utils.CurrentPageDimensions;
-import com.application.views.host_views.HostLoginView;
-import com.application.views.host_views.HostGameView;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.AfterNavigationEvent;
@@ -23,18 +23,16 @@ import com.vaadin.flow.server.VaadinSession;
 @Route(value = "", layout = MainLayout.class)
 public class ViewContainer extends VerticalLayout implements AfterNavigationObserver {
     static int rel = 0; // for tracking reloads
-
+    UI ui;
     // Views
     private UserLoginView userLoginView;
     private HostLoginView hostLoginView;
     private QuestionContainer questionContainer;
     private WaitingView waitingView;
     private HostGameView hostGameView;
-
     //internal
     private String gameNumber = "";
     private String currentView = "";
-    UI ui;
 
     // Adds ViewContainer instance to the current session
     public ViewContainer() {
@@ -70,12 +68,12 @@ public class ViewContainer extends VerticalLayout implements AfterNavigationObse
         return UI.getCurrent();
     }
 
-    public void setGameNumber(String g) {
-        this.gameNumber = g;
-    }
-
     public String getGameNumber() {
         return gameNumber;
+    }
+
+    public void setGameNumber(String g) {
+        this.gameNumber = g;
     }
 
     // Swaps actively displayed View in the session's ViewContainer instance
@@ -135,7 +133,7 @@ public class ViewContainer extends VerticalLayout implements AfterNavigationObse
     @Override
     public void afterNavigation(AfterNavigationEvent event) {
         add(userLoginView);
-        if(rel == 0) {
+        if (rel == 0) {
             this.removeAll();
             UI.getCurrent().getPage().reload();
             rel++;

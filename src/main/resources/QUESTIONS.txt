@@ -1,55 +1,68 @@
-*Difficulty 0, Projectile Motion*
+*On-Level, Projectile Motion*
+open
+A cannon is fired horizontally from the top of a 30m cliff into the ocean. The initial velocity of the cannon was 1000m/s. How far from the cliff does the cannon ball hit the water?
+2470
+
+
+vector
+A ball is thrown with a velocity of 10 m/s, reaching a maximum height of 3 meters. Draw a vector representing the initial throw
+50.11
+This is a path
+
+vector
+This is a vector question
+100
+This is a path
+
+open
 This is a question
 100
 This is a path
 
+vector
+This is a vector question
+100
+This is a path
+
+open
 This is a question
 100
 This is a path
 
+vector
+This is a vector question
+100
+This is a path
+
+open
 This is a question
 100
 This is a path
 
-This is a question
+vector
+This is a vector question
 100
 This is a path
 
-This is a question
-100
-This is a path
-
-This is a question
-100
-This is a path
-
-This is a question
-100
-This is a path
-
-This is a question
-100
-This is a path
-
-This is a question
-100
-This is a path
-
+open
 This is a question
 100
 This is a path
 
 *
+open
 This is a question
 100
 This is a path
 
 *
+open
 This is a question
 100
 This is a path
 
 *
+open
 This is a question
 100
 This is a path

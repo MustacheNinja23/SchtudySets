@@ -5,24 +5,22 @@ import com.application.views.backend.question_classes.Identifier;
 import com.application.views.backend.question_classes.Question;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
-
-import static java.util.Collections.sort;
 
 /*
     Contains all identifying information and a HashMap of users for a Game instance
 */
 public class Game {
-    private HashMap<String, User> users;
+    private final HashMap<String, User> users;
     private final String gameNumber;
     private final ArrayList<Question> questions;
     private boolean gameIsStarted;
 
     public Game(String gameNumber, Identifier id, int numberOfQuestions) {
         users = new HashMap<>();
-        questions = AllQuestions.createListOfQuestions(id, numberOfQuestions);
+        //questions = AllQuestions.createListOfQuestions(id, numberOfQuestions);
+        questions = AllQuestions.getNonRandomList();
         this.gameNumber = gameNumber;
         gameIsStarted = false;
     }

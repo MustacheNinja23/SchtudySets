@@ -6,7 +6,10 @@ import com.application.views.backend.game_classes.AllGames;
 import com.application.views.backend.game_classes.User;
 import com.application.views.backend.utils.AbsoluteLayout;
 import com.application.views.backend.utils.CurrentPageDimensions;
-import com.vaadin.flow.component.*;
+import com.vaadin.flow.component.AttachEvent;
+import com.vaadin.flow.component.DetachEvent;
+import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.Unit;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.shared.Registration;
 
@@ -16,18 +19,21 @@ import com.vaadin.flow.shared.Registration;
 */
 public class WaitingView extends AbsoluteLayout { //TODO: waiting
     // internal
-    private ViewContainer container = ((ViewContainer) UI.getCurrent().getSession().getAttribute("viewContainer"));
+    private final ViewContainer container = ((ViewContainer) UI.getCurrent().getSession().getAttribute("viewContainer"));
+    private final User me = ((User) container.getUi().getSession().getAttribute("currentUser"));
     Registration registration;
-    private User me = ((User) container.getUi().getSession().getAttribute("currentUser"));
-
     //elements
     private H1 title;
+
+    public WaitingView() {
+        CurrentPageDimensions.update();
+    }
 
     @Override
     protected void onAttach(AttachEvent attachEvent) {
         //check if the game is already started, join immediately if so
         //  otherwise, await the game start broadcast
-        if(AllGames.allGames.get(container.getGameNumber()).isStarted()){
+        if (AllGames.allGames.get(container.getGameNumber()).isStarted()) {
             container.changeToView("questionView");
         }
 
@@ -39,20 +45,16 @@ public class WaitingView extends AbsoluteLayout { //TODO: waiting
     }
 
     @Override
-    protected void onDetach(DetachEvent detachEvent){
+    protected void onDetach(DetachEvent detachEvent) {
         registration.remove();
         registration = null;
     }
 
-    public WaitingView() {
-        CurrentPageDimensions.update();
-    }
-
-    public void createPage(){
+    public void createPage() {
         title = new H1("Waiting for host...");
         title.getStyle().set("font-size", "60px");
         title.setWidth(CurrentPageDimensions.getWidth(), Unit.PIXELS);
 
-        this.add(title, CurrentPageDimensions.getHeight() * 5/12, CurrentPageDimensions.getWidth() * 5/12);
+        this.add(title, CurrentPageDimensions.getHeight() * 5 / 12, CurrentPageDimensions.getWidth() * 5 / 12);
     }
 }

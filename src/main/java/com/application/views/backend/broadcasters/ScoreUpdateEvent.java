@@ -3,7 +3,7 @@ package com.application.views.backend.broadcasters;
 import com.application.views.backend.game_classes.User;
 
 public class ScoreUpdateEvent {
-    private User user;
+    private final User user;
 
     public ScoreUpdateEvent(User user) {
         this.user = user;
