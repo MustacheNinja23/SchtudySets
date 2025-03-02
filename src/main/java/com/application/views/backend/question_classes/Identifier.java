@@ -30,10 +30,6 @@ public class Identifier {
         return quesType;
     }
 
-    public void setQuestionType(String q) {
-        quesType = q;
-    }
-
     public boolean equals(Identifier other) {
         return diff.equals(other.diff) && Arrays.equals(types, other.types);
     }

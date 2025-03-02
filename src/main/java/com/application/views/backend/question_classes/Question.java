@@ -34,10 +34,6 @@ public class Question {
         return id.getTypes();
     }
 
-    public String getDifficulty() {
-        return id.getDifficulty();
-    }
-
     public String getQuestionType() {
         return id.getQuestionType();
     }

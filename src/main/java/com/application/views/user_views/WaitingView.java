@@ -20,10 +20,7 @@ import com.vaadin.flow.shared.Registration;
 public class WaitingView extends AbsoluteLayout { //TODO: waiting
     // internal
     private final ViewContainer container = ((ViewContainer) UI.getCurrent().getSession().getAttribute("viewContainer"));
-    private final User me = ((User) container.getUi().getSession().getAttribute("currentUser"));
     Registration registration;
-    //elements
-    private H1 title;
 
     public WaitingView() {
         CurrentPageDimensions.update();
@@ -51,7 +48,7 @@ public class WaitingView extends AbsoluteLayout { //TODO: waiting
     }
 
     public void createPage() {
-        title = new H1("Waiting for host...");
+        H1 title = new H1("Waiting for host...");
         title.getStyle().set("font-size", "60px");
         title.setWidth(CurrentPageDimensions.getWidth(), Unit.PIXELS);
 

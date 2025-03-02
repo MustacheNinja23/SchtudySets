@@ -29,8 +29,6 @@ public class HostLoginView extends AbsoluteLayout {
     private RadioButtonGroup<String> difficulties;
     private CheckboxGroup<String> types;
     private TextField numQuestions;
-    private Button send;
-    private VerticalLayout options;
 
     public HostLoginView() {
         CurrentPageDimensions.update();
@@ -52,7 +50,7 @@ public class HostLoginView extends AbsoluteLayout {
         numQuestions = new TextField("Number of Questions (Leave blank for 10, max of ___)");
 
         // Creates Game on click using inputs from fields instantiated above
-        send = new Button("Create Game", event -> {
+        Button send = new Button("Create Game", _ -> {
             if (difficulties.isEmpty()) {
                 Notification.show("Please select difficulty");
             } else if (types.isEmpty() || numQuestions.isEmpty()) {
@@ -68,7 +66,7 @@ public class HostLoginView extends AbsoluteLayout {
             }
         });
 
-        options = new VerticalLayout(difficulties, types, numQuestions);
+        VerticalLayout options = new VerticalLayout(difficulties, types, numQuestions);
 
         this.add(options, CurrentPageDimensions.getHeight() / 3, CurrentPageDimensions.getWidth() / 5);
         this.add(send, CurrentPageDimensions.getHeight() * 3 / 4, CurrentPageDimensions.getWidth() / 3);

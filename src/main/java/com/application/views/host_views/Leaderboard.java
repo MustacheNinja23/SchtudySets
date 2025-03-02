@@ -10,7 +10,6 @@ import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.Unit;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.shared.Registration;
 
 /*
     View shown on the user session while the game is ongoing
@@ -18,11 +17,7 @@ import com.vaadin.flow.shared.Registration;
 */
 public class Leaderboard extends VerticalLayout {
     // internal
-    private final ViewContainer container = ((ViewContainer) UI.getCurrent().getSession().getAttribute("viewContainer"));
     private final Game game;
-    // elements
-    VerticalLayout leaderboard;
-    private Registration registration;
 
     // Create Page
     public Leaderboard(String gameNumber) {

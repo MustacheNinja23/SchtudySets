@@ -6,6 +6,7 @@ import com.application.views.backend.broadcasters.StartGameEventBroadcaster;
 import com.application.views.backend.broadcasters.UpdateScoreEventBroadcaster;
 import com.application.views.backend.game_classes.AllGames;
 import com.application.views.backend.game_classes.Game;
+import com.application.views.backend.game_classes.User;
 import com.application.views.backend.utils.AbsoluteLayout;
 import com.application.views.backend.utils.CurrentPageDimensions;
 import com.vaadin.flow.component.AttachEvent;
@@ -32,10 +33,6 @@ public class HostGameView extends AbsoluteLayout {
     private Registration updateScoreRegistration, joinGameRegistration;
     private String gameNumber = "";
     private Game game;
-
-    // elements
-    private Button startGame, endGame;
-    private Leaderboard leaderboard;
 
     public HostGameView() {
         CurrentPageDimensions.update();
@@ -88,7 +85,8 @@ public class HostGameView extends AbsoluteLayout {
         game = AllGames.allGames.get(gameNumber);
 
         //start game button
-        startGame = new Button("Start Game", event -> {
+        // elements
+        Button startGame = new Button("Start Game", _ -> {
             StartGameEventBroadcaster.broadcast(gameNumber);
             game.startGame();
         });
@@ -99,14 +97,14 @@ public class HostGameView extends AbsoluteLayout {
         }
 
         //end game button
-        endGame = new Button("End Game", event -> {
-            //TODO: add end-game logic
+        Button endGame = new Button("End Game", _ -> {
+            AllGames.allGames.remove(gameNumber);
         });
         startGame.getStyle().set("font-size", "30");
 
         add(endGame, CurrentPageDimensions.getHeight() * 13 / 16, CurrentPageDimensions.getWidth() * 10 / 16);
 
-        leaderboard = new Leaderboard(gameNumber);
+        Leaderboard leaderboard = new Leaderboard(gameNumber);
         leaderboard.createPage();
         add(leaderboard, CurrentPageDimensions.getHeight() / 4, CurrentPageDimensions.getWidth() / 8);
     }

@@ -1,7 +1,6 @@
 package com.application.views.backend.game_classes;
 
 import com.github.javaparser.quality.NotNull;
-import com.vaadin.flow.server.VaadinSession;
 
 /*
     Contains identifying information for an instance of the

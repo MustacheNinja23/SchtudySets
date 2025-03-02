@@ -32,8 +32,6 @@ public class QuestionView extends AbsoluteLayout {
     private boolean questionCompleted = false;
     // elements
     private TextField answerField;
-    private Button submit;
-    private Image image;
     private H1 questionDisplay;
     private VectorFieldView vectorArea;
 
@@ -60,7 +58,7 @@ public class QuestionView extends AbsoluteLayout {
 
                 answerField = new TextField("Answer");
 
-                submit = new Button("Submit", event -> {
+                Button submit = new Button("Submit", _ -> {
                     Answer ans = new Answer(question.getQuestionType(), new Double[]{Double.parseDouble(answerField.getValue())});
                     if (ans.compareTo(question.getAnswer()) == 0) {
                         UpdateScoreEventBroadcaster.broadcast(new ScoreUpdateEvent(me));
@@ -71,7 +69,7 @@ public class QuestionView extends AbsoluteLayout {
                     }
                 });
 
-                image = new Image(new StreamResource("image", () -> getClass().getResourceAsStream(question.getImageAddress())), "");
+                Image image = new Image(new StreamResource("image", () -> getClass().getResourceAsStream(question.getImageAddress())), "");
                 image.setHeight("100px");
                 image.setWidth("100px");
 
@@ -107,7 +105,7 @@ public class QuestionView extends AbsoluteLayout {
                 questionDisplay = new H1(question.getQues());
                 questionDisplay.setWidth((float) (width * 11) / 12, Unit.PIXELS);
 
-                submit = new Button("Submit", event -> {
+                submit = new Button("Submit", _ -> {
                     ArrayList<Double> arr = new ArrayList<>();
                     for (VectorCanvas.VectorAreaShape d : vectorArea.getCanvas().getShapes())
                         arr.add(d.getVecAngle());

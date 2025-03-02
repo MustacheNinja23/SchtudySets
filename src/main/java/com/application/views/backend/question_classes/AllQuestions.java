@@ -22,7 +22,7 @@ public class AllQuestions {
             "Honors",
             "AP"
     };
-    public static ArrayList<Identifier> ids = new ArrayList<Identifier>();
+    public static ArrayList<Identifier> ids = new ArrayList<>();
 
     public static void instantiate() throws FileNotFoundException {
         questions = new HashMap<>();
@@ -87,10 +87,5 @@ public class AllQuestions {
 
     public static ArrayList<Question> getQuestionTypeList(Identifier id) {
         return questions.get(id);
-    }
-
-    public static Question getRandomQuestion(Identifier id) {
-        ArrayList<Question> temp = getQuestionTypeList(id);
-        return temp.get((int) (Math.random() * temp.size()));
     }
 }

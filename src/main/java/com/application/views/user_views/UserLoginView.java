@@ -26,7 +26,6 @@ public class UserLoginView extends AbsoluteLayout {
 
     // elements
     private TextField gameNum, nickName;
-    private VerticalLayout items;
 
     public UserLoginView() {
         CurrentPageDimensions.update();
@@ -41,7 +40,7 @@ public class UserLoginView extends AbsoluteLayout {
         gameNum.setPlaceholder("Game Number");
         nickName.setPlaceholder("Nickname");
 
-        send.addClickListener(e -> {
+        send.addClickListener(_ -> {
             if (!nickName.getValue().isEmpty() && !gameNum.getValue().isEmpty()) {
                 if (AllGames.allGames.containsKey(gameNum.getValue())) {
                     boolean checkName = true;
@@ -70,9 +69,7 @@ public class UserLoginView extends AbsoluteLayout {
             }
         });
 
-        Button goToHostView = new Button("host game", e -> {
-            container.changeToView("hostLoginView");
-        });
+        Button goToHostView = new Button("host game", _ -> container.changeToView("hostLoginView"));
 
         VerticalLayout items = new VerticalLayout(gameNum, nickName, send, goToHostView);
         items.setJustifyContentMode(FlexComponent.JustifyContentMode.CENTER);

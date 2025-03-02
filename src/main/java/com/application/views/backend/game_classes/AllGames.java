@@ -21,10 +21,4 @@ public class AllGames {
     public static Game getGame(String gameNumber) {
         return allGames.get(gameNumber);
     }
-
-    public static void printAllGames() {
-        for (Game game : allGames.values()) {
-            System.out.print(game.getGameNumber() + ", ");
-        }
-    }
 }

@@ -119,7 +119,6 @@ public class VectorCanvas extends Canvas {
                 System.out.println("drawDraggablePoint");
                 moveListener = this.addMouseMoveListener(move -> {
                     point.setLocation(move.getOffsetX(), move.getOffsetY());
-                    toString();
                     this.clear();
                     this.drawAll();
                 });
@@ -176,12 +175,6 @@ public class VectorCanvas extends Canvas {
             vec.add((double) (points.getLast().x - points.getFirst().x));
             vec.add((double) (points.getLast().y - points.getFirst().y));
             return Math.acos(vec.getFirst() / (Math.sqrt(Math.pow(vec.getFirst(), 2) + Math.pow(vec.getLast(), 2))));
-        }
-
-        public String toString() {
-            points.forEach(point -> System.out.println(point.x + " " + point.y));
-            System.out.println("\n");
-            return "";
         }
     }
 }

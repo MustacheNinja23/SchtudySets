@@ -24,14 +24,10 @@ public class QuestionContainer extends AbsoluteLayout {
     // internal
     private final ViewContainer container = ((ViewContainer) UI.getCurrent().getSession().getAttribute("viewContainer"));
     private User me;
-    private String gameNumber;
-    private Game game;
 
     //elements
     private ArrayList<Question> questions;
     private ArrayList<QuestionView> questionViews;
-    private VerticalLayout layout;
-    private Div linkArea;
     private Div questionArea;
 
     public QuestionContainer(String nickName) {
@@ -40,8 +36,8 @@ public class QuestionContainer extends AbsoluteLayout {
     }
 
     public void initialize(String nickName) {
-        gameNumber = container.getGameNumber();
-        game = AllGames.getGame(gameNumber);
+        String gameNumber = container.getGameNumber();
+        Game game = AllGames.getGame(gameNumber);
         me = game.getUser(nickName);
         questions = game.getQuestions();
         questionViews = new ArrayList<>();
@@ -55,16 +51,16 @@ public class QuestionContainer extends AbsoluteLayout {
             questionViews.get(i).setWidth(CurrentPageDimensions.getWidth() / 2 + "");
         }
 
-        linkArea = new Div();
+        Div linkArea = new Div();
         linkArea.getStyle().set("background-color", "gray");
         linkArea.setHeight(CurrentPageDimensions.getHeight(), Unit.PIXELS);
         linkArea.setWidth((float) CurrentPageDimensions.getWidth() / 6, Unit.PIXELS);
-        layout = new VerticalLayout();
+        VerticalLayout layout = new VerticalLayout();
         layout.getStyle().set("overflow", "auto");
         linkArea.add(layout);
         for (int i = 0; i < questions.size(); i++) {
             int finalI = i;
-            layout.add(new Button("Question " + (i + 1), event -> {
+            layout.add(new Button("Question " + (i + 1), _ -> {
                 questionArea.removeAll();
                 questionViews.get(finalI).createPage();
                 questionArea.add(questionViews.get(finalI));

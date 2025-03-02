@@ -10,8 +10,6 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 public class VectorFieldView extends AbsoluteLayout {
     private final int width;
     private final int height;
-    private AbsoluteLayout toolbar;
-    private HorizontalLayout buttons, slider;
     private VectorCanvas canvas;
     private RangeInput widthSlider;
 
@@ -21,12 +19,12 @@ public class VectorFieldView extends AbsoluteLayout {
     }
 
     public void createPage() {
-        toolbar = new AbsoluteLayout();
+        AbsoluteLayout toolbar = new AbsoluteLayout();
         toolbar.getStyle().set("border", "1px solid black");
         toolbar.getStyle().setPadding("3");
         toolbar.setHeight(CurrentPageDimensions.getHeight() / 12 + "");
 
-        buttons = new HorizontalLayout();
+        HorizontalLayout buttons = new HorizontalLayout();
         buttons.add(new Button("Pen", _ -> canvas.setBrushType("free")));
         buttons.add(new Button("Vector", _ -> canvas.setBrushType("vec")));
         buttons.add(new Button("Rectangle", _ -> canvas.setBrushType("rect")));
@@ -39,7 +37,7 @@ public class VectorFieldView extends AbsoluteLayout {
         widthSlider.setStep(1.0);
         widthSlider.setValue(2.0);
         widthSlider.addValueChangeListener(_ -> canvas.setBrushWidth(widthSlider.getValue()));
-        slider = new HorizontalLayout(new Text("Brush width:"), widthSlider);
+        HorizontalLayout slider = new HorizontalLayout(new Text("Brush width:"), widthSlider);
         slider.add(new Button("Clear", _ -> canvas.fullClear()));
         toolbar.add(slider);
 
