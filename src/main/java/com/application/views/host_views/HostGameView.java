@@ -6,7 +6,6 @@ import com.application.views.backend.broadcasters.StartGameEventBroadcaster;
 import com.application.views.backend.broadcasters.UpdateScoreEventBroadcaster;
 import com.application.views.backend.game_classes.AllGames;
 import com.application.views.backend.game_classes.Game;
-import com.application.views.backend.game_classes.User;
 import com.application.views.backend.utils.AbsoluteLayout;
 import com.application.views.backend.utils.CurrentPageDimensions;
 import com.vaadin.flow.component.AttachEvent;

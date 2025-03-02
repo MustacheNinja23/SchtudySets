@@ -1,12 +1,10 @@
 package com.application.views.host_views;
 
-import com.application.views.ViewContainer;
 import com.application.views.backend.game_classes.AllGames;
 import com.application.views.backend.game_classes.Game;
 import com.application.views.backend.game_classes.User;
 import com.application.views.backend.utils.AbsoluteLayout;
 import com.application.views.backend.utils.CurrentPageDimensions;
-import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.Unit;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;

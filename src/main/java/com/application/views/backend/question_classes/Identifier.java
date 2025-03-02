@@ -9,7 +9,7 @@ import java.util.Arrays;
 public class Identifier {
     private final String[] types;
     private final String diff;
-    private String quesType;
+    private final String quesType;
 
 
     public Identifier(String diff, String quesType, String... types) {
