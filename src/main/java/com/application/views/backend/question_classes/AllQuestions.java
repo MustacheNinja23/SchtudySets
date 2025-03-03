@@ -69,16 +69,21 @@ public class AllQuestions {
         ArrayList<Question> tempQuestions;
         ArrayList<Question> list;
 
-        tempQuestions = questions.get(id);
-        list = new ArrayList<>();
+        for(Identifier d : ids) {
+            if(d.equals(id)) {
+                tempQuestions = questions.get(d);
+                list = new ArrayList<>();
 
-        int rand;
-        for (int i = 0; i < number; i++) {
-            rand = (int) (Math.random() * tempQuestions.size());
-            list.add(tempQuestions.get(rand));
-            tempQuestions.remove(rand);
+                int rand;
+                for (int i = 0; i < number; i++) {
+                    rand = (int) (Math.random() * tempQuestions.size());
+                    list.add(tempQuestions.get(rand));
+                    tempQuestions.remove(rand);
+                }
+                return list;
+            }
         }
-        return list;
+        return null;
     }
 
     public static ArrayList<Question> getQuestionTypeList(Identifier id) {
