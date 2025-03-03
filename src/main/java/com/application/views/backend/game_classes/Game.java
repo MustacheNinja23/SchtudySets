@@ -19,8 +19,7 @@ public class Game {
 
     public Game(String gameNumber, Identifier id, int numberOfQuestions) {
         users = new HashMap<>();
-        //questions = AllQuestions.createListOfQuestions(id, numberOfQuestions);
-        questions = AllQuestions.getNonRandomList();
+        questions = AllQuestions.createListOfQuestions(id, numberOfQuestions);
         this.gameNumber = gameNumber;
         gameIsStarted = false;
     }

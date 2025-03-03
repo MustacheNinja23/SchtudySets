@@ -11,7 +11,7 @@ import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.Unit;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.textfield.TextField;
@@ -32,7 +32,7 @@ public class QuestionView extends AbsoluteLayout {
     private boolean questionCompleted = false;
     // elements
     private TextField answerField;
-    private H1 questionDisplay;
+    private H2 questionDisplay;
     private VectorFieldView vectorArea;
 
     private int width, height;
@@ -53,7 +53,7 @@ public class QuestionView extends AbsoluteLayout {
 
         switch (question.getQuestionType()) {
             case "open":
-                questionDisplay = new H1(question.getQues());
+                questionDisplay = new H2(question.getQues());
                 questionDisplay.setWidth((float) (width * 5) / 12, Unit.PIXELS);
 
                 answerField = new TextField("Answer");
@@ -102,7 +102,7 @@ public class QuestionView extends AbsoluteLayout {
                 break;
 
             case "vector":
-                questionDisplay = new H1(question.getQues());
+                questionDisplay = new H2(question.getQues());
                 questionDisplay.setWidth((float) (width * 11) / 12, Unit.PIXELS);
 
                 submit = new Button("Submit", _ -> {

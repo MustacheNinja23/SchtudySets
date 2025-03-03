@@ -6,7 +6,7 @@ A cannon is fired horizontally from the top of a 30m cliff into the ocean. The i
 
 vector
 A ball is thrown with a velocity of 10 m/s, reaching a maximum height of 3 meters. Draw a vector representing the initial throw
-50.11
+0.87266
 This is a path
 
 vector

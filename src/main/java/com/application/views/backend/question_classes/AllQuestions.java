@@ -81,10 +81,6 @@ public class AllQuestions {
         return list;
     }
 
-    public static ArrayList<Question> getNonRandomList() {
-        return new ArrayList<>(questions.get(ids.getFirst()));
-    }
-
     public static ArrayList<Question> getQuestionTypeList(Identifier id) {
         return questions.get(id);
     }
